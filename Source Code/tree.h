@@ -23,12 +23,12 @@ bool searchBinaryResult(bool l1, bool l2, operation oper);
 -количество деревьев, которые нужно сгенерировать, -1(значение по-умолчанию) означает получить все.
 Если деревьев меньше, чем нужное количество, то записываются все деревья
 */
-void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector<operation>& oper, bool isNot = true, size_t countNode = -1);
+void generateNode(std::vector<const Node*>& his, std::vector<const Node*>& head, std::vector<operation>& oper, bool isNot = true, size_t countNode = -1);
 
-bool findLogicValue(std::vector<Node*>& his, Node* head, std::vector<bool>& xyz);
+bool findLogicValue(std::vector<const Node*>& his, const Node* head, std::vector<bool>& xyz);
 
-void outputSdnf(std::vector<Node*>& his, std::vector<Node*>& head, QTextStream& os);
+void outputSdnf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
 
-void outputSknf(std::vector<Node*>& his, std::vector<Node*>& head, QTextStream& os);
+void outputSknf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
 
-void buildTableTruth(std::vector<Node*>& his, std::vector<Node*>& head, QTextStream& os);
+void buildTableTruth(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);

@@ -15,7 +15,11 @@ class FromTreeManipulation : public QWidget
     Q_OBJECT
 
 public:
-    explicit FromTreeManipulation(std::vector<Node*>& _his, std::vector<Node*>& _head, QStackedWidget *stWidget, QWidget *parent = nullptr);
+    explicit FromTreeManipulation(
+            std::vector<const Node*>& _his,
+            std::vector<const Node*>& _head,
+            QStackedWidget *stWidget,
+            QWidget *parent = nullptr);
     ~FromTreeManipulation();
     void updateTree();
 
@@ -23,8 +27,8 @@ private:
     /*variable*/
     Ui::FromTreeManipulation *ui;
     QStackedWidget *stWidget; /*указатель на внешний виджет*/
-    std::vector<Node*>& his; /*указатель на переменные*/
-    std::vector<Node*>& head; /*указатель на корни деревьев*/
+    std::vector<const Node*>& his; /*указатель на переменные*/
+    std::vector<const Node*>& head; /*указатель на корни деревьев*/
 
     /*methods*/
     void itemChanged();

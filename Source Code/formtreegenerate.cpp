@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QDebug>
 
-FormTreeGenerate::FormTreeGenerate(std::vector<Node*>& _his, std::vector<Node*>& _head, QStackedWidget *stWidget, QWidget *parent) :
+FormTreeGenerate::FormTreeGenerate(std::vector<const Node*>& _his, std::vector<const Node*>& _head, QStackedWidget *stWidget, QWidget *parent) :
     QWidget(parent), ui(new Ui::FormTreeGenerate), his(_his), head(_head)
 {
     ui->setupUi(this);

@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QDebug>
 
-FromTreeManipulation::FromTreeManipulation(std::vector<Node*>& _his, std::vector<Node*>& _head, QStackedWidget *stWidget, QWidget *parent) :
+FromTreeManipulation::FromTreeManipulation(std::vector<const Node*>& _his, std::vector<const Node*>& _head, QStackedWidget *stWidget, QWidget *parent) :
     QWidget(parent), ui(new Ui::FromTreeManipulation), his(_his), head(_head)
 {
     ui->setupUi(this);
@@ -186,7 +186,7 @@ void FromTreeManipulation::sdnfItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
-            std::vector<Node*> headOne;
+            std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
             outputSdnf(his, headOne, stream);
             stream.flush();
@@ -235,7 +235,7 @@ void FromTreeManipulation::sknfItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
-            std::vector<Node*> headOne;
+            std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
             outputSknf(his, headOne, stream);
             stream.flush();
@@ -284,7 +284,7 @@ void FromTreeManipulation::tableItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
-            std::vector<Node*> headOne;
+            std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
             buildTableTruth(his, headOne, stream);
             stream.flush();

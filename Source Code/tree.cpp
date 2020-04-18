@@ -25,7 +25,7 @@ void inputConsole(T& variable)
     } while (isCinbad);
 }
 
-void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector<operation>& oper, bool isNot, size_t countNode)
+void generateNode(std::vector<const Node*>& his, std::vector<const Node*>& head, std::vector<operation>& oper, bool isNot, size_t countNode)
 {
     if (his.size() == 2)
     {
@@ -43,7 +43,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
 
                 if (k == 1)
                 {
-                    Node* temporary = his[1];
+                    const Node* temporary = his[1];
                     his[1] = his[0];
                     his[0] = temporary;
                 }
@@ -122,24 +122,32 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
                             break;
                         }
 
-                        head.push_back(copy(his[his.size() - 1]));
+                        bool isDublicate = false;
+                        for (size_t count = 0; count < head.size(); count++) /*проверка на уникальность дерева*/
+                        {
+                            if (compareTree(his[his.size() - 1], head[count]))
+                            {
+                                isDublicate = true;
+                                break;
+                            }
+                        }
 
-                        //qDebug() << head.size() << ": ";
-                        //head[head.size() - 1]->qStringDisplay();
-                        //qDebug() << endl;
+                        if (!isDublicate) /*если уникальное дерево*/
+                            head.push_back(copy(his[his.size() - 1]));
+
 
                         /*возвращаем массив в исходное состояние*/
                         if (his[0]->getField().type == typeNode::OPERATION
                             && his[0]->getField().oper == operation::NOT)
                         {
-                            Node* tmp = his[0]->getRight();
+                            const Node* tmp = his[0]->getRight();
                             delete his[0];
                             his[0] = tmp;
                         }
                         if (his[1]->getField().type == typeNode::OPERATION
                             && his[1]->getField().oper == operation::NOT)
                         {
-                            Node* tmp = his[1]->getRight();
+                            const Node* tmp = his[1]->getRight();
                             delete his[1];
                             his[1] = tmp;
                         }
@@ -157,11 +165,21 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
                             his[0],
                             his[1]
                         ));
-                    head.push_back(copy(his[his.size() - 1]));
 
-                    //std::cout << head.size() << ": ";
-                    //head[head.size() - 1]->display();
-                   // std::cout << std::endl;
+
+                    bool isDublicate = false;
+                    for (size_t count = 0; count < head.size(); count++) /*проверка на уникальность дерева*/
+                    {
+                        if (compareTree(his[his.size() - 1], head[count]))
+                        {
+                            isDublicate = true;
+                            break;
+                        }
+                    }
+
+                    if (!isDublicate)
+                        head.push_back(copy(his[his.size() - 1]));
+
 
                     delete his[his.size() - 1];
                     his.pop_back();
@@ -169,7 +187,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
 
                 if (k == 1)
                 {
-                    Node* temporary = his[0];
+                    const Node* temporary = his[0];
                     his[0] = his[1];
                     his[1] = temporary;
                 }
@@ -197,7 +215,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
 
                         if (k == 1)
                         {
-                            Node* temporary = his[n];
+                            const Node* temporary = his[n];
                             his[n] = his[m];
                             his[m] = temporary;
                         }
@@ -290,13 +308,13 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
                                     his[his.size() - 1]->getLeft()->getField().type == typeNode::OPERATION
                                     && his[his.size() - 1]->getLeft()->getField().oper == operation::NOT)
                                 {
-                                    Node* tmp = his[his.size() - 1]->getLeft()->getRight();
+                                    const Node* tmp = his[his.size() - 1]->getLeft()->getRight();
                                     delete his[his.size() - 1]->getLeft();
                                     his.insert(his.begin() + m, tmp);
                                 }
                                 else
                                 {
-                                    Node* tmp = his[his.size() - 1]->getLeft();
+                                    const Node* tmp = his[his.size() - 1]->getLeft();
                                     his.insert(his.begin() + m, tmp);
                                 }
 
@@ -304,13 +322,13 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
                                     his[his.size() - 1]->getRight()->getField().type == typeNode::OPERATION
                                     && his[his.size() - 1]->getRight()->getField().oper == operation::NOT)
                                 {
-                                    Node* tmp = his[his.size() - 1]->getRight()->getRight();
+                                    const Node* tmp = his[his.size() - 1]->getRight()->getRight();
                                     delete his[his.size() - 1]->getRight();
                                     his.insert(his.begin() + n, tmp);
                                 }
                                 else
                                 {
-                                    Node* tmp = his[his.size() - 1]->getRight();
+                                    const Node* tmp = his[his.size() - 1]->getRight();
                                     his.insert(his.begin() + n, tmp);
                                 }
 
@@ -333,7 +351,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
                             generateNode(his, head, oper, isNot, countNode);
 
                             /*возвращаем массив his в исходное состояние*/
-                            Node* tmp = his[his.size() - 1]->getLeft();
+                            const Node* tmp = his[his.size() - 1]->getLeft();
                             his.insert(his.begin() + m, tmp);
 
                             tmp = his[his.size() - 1]->getRight();
@@ -345,7 +363,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
 
                         if (k == 1)
                         {
-                            Node* temporary = his[m];
+                            const Node* temporary = his[m];
                             his[m] = his[n];
                             his[n] = temporary;
                         }
@@ -356,7 +374,7 @@ void generateNode(std::vector<Node*>& his, std::vector<Node*>& head, std::vector
     }
 }
 
-bool findLogicValue(std::vector<Node*>& his, Node* head, std::vector<bool>& xyz)
+bool findLogicValue(std::vector<const Node*>& his, const Node* head, std::vector<bool>& xyz)
 {
     if (head->getLeft() != nullptr && head->getRight() != nullptr && head->getField().type == typeNode::OPERATION)
         return searchBinaryResult(findLogicValue(his, head->getLeft(), xyz), findLogicValue(his, head->getRight(), xyz), head->getField().oper);
@@ -385,9 +403,9 @@ bool findLogicValue(std::vector<Node*>& his, Node* head, std::vector<bool>& xyz)
     return false; /*если ошибка, оно не падает*/
 }
 
-void outputSdnf(std::vector<Node *> &his, std::vector<Node *> &head, QTextStream& os)
+void outputSdnf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream& os)
 {
-    std::vector<Node*> hisTMP; /*хранение переменных без повторения*/
+    std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
     for (size_t i = 1; i < his.size(); i++) /*удаление дубдикатов переменных*/
     {
@@ -475,9 +493,9 @@ void outputSdnf(std::vector<Node *> &his, std::vector<Node *> &head, QTextStream
     }
 }
 
-void outputSknf(std::vector<Node *> &his, std::vector<Node *> &head, QTextStream &os)
+void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os)
 {
-    std::vector<Node*> hisTMP; /*хранение переменных без повторения*/
+    std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
     for (size_t i = 1; i < his.size(); i++) /*удаление дубдикатов переменных*/
     {
@@ -571,9 +589,9 @@ void outputSknf(std::vector<Node *> &his, std::vector<Node *> &head, QTextStream
     }
 }
 
-void buildTableTruth(std::vector<Node *> &his, std::vector<Node *> &head, QTextStream &os)
+void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os)
 {
-    std::vector<Node*> hisTMP; /*хранение переменных без повторения*/
+    std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
     for (size_t i = 1; i < his.size(); i++) /*удаление дубдикатов переменных*/
     {

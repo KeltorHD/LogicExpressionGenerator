@@ -15,7 +15,11 @@ class FormTreeGenerate : public QWidget
     Q_OBJECT
 
 public:
-    explicit FormTreeGenerate(std::vector<Node*>& _his, std::vector<Node*>& _head, QStackedWidget *stWidget, QWidget *parent = nullptr);
+    explicit FormTreeGenerate(
+            std::vector<const Node*>& _his,
+            std::vector<const Node*>& _head,
+            QStackedWidget *stWidget,
+            QWidget *parent = nullptr);
     ~FormTreeGenerate();
 
 private:
@@ -25,8 +29,8 @@ private:
     bool masOp[8]; /*массив операций*/
     bool masLg[2]; /*массив логических констант*/
     QStackedWidget *stWidget; /*указатель на внешний виджет*/
-    std::vector<Node*>& his; /*указатель на переменные*/
-    std::vector<Node*>& head; /*указатель на корни деревьев*/
+    std::vector<const Node*>& his; /*указатель на переменные*/
+    std::vector<const Node*>& head; /*указатель на корни деревьев*/
 
     /*methods*/
     void spinBoxChanged(int var); /*изменение значений переменных*/

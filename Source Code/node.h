@@ -83,13 +83,13 @@ class Node
 {
 private:
     fieldNode field;    /*поле, что хранится в узле*/
-    Node* left;         /*левый потомок*/
-    Node* right;        /*правый потомок*/
+    const Node* left;         /*левый потомок*/
+    const Node* right;        /*правый потомок*/
 
 public:
     Node() { this->left = nullptr; this->right = nullptr; };
     Node(fieldNode field);
-    Node(fieldNode field, Node* left, Node* right);
+    Node(fieldNode field, const Node* left, const Node* right);
     ~Node();
 
     /*перегруженные операции*/
@@ -99,11 +99,40 @@ public:
     void display(int n = 0, std::ostream& os = std::cout) const;   /*вывод дерева на экран*/
     void qStringDisplay(int n, QTextStream& os) const;
     //void tableDisplay(int n = 0) const;   /*вывод дерева для таблицы истинности*/
-    friend void deleteNode(Node* n); /*удаление дерева, применять для вершины, удаляется и вершина!*/
-    friend Node* copy(Node* n);      /*копирование узла и всех его потомков и выделение памяти*/
+    friend bool compareTree(const Node* n1, const Node* n2);
+    friend void deleteNode(const Node* n); /*удаление дерева, применять для вершины, удаляется и вершина!*/
+    friend Node* copy(const Node* n);      /*копирование узла и всех его потомков и выделение памяти*/
 
     /*get AND set*/
     const fieldNode& getField() const;
-    Node* getLeft();
-    Node* getRight();
+    const Node* getLeft() const;
+    const Node* getRight() const;
+};
+
+class OrdinaryTree   /*класс обычного дерева*/
+{
+private:
+    fieldNode field; /*то, что зранится в узле*/
+    std::vector<OrdinaryTree*> child; /*вектор указателей на детей*/
+
+    OrdinaryTree(const OrdinaryTree&); /*конструктор копирования*/
+    OrdinaryTree& operator=(const OrdinaryTree&) { return *this; }; /*оператор присваивания*/
+
+    /*методы*/
+    void addChild(OrdinaryTree* ord); /*добавление ребенка*/
+    void addField(const fieldNode& field);
+
+public:
+    OrdinaryTree();
+    OrdinaryTree(const fieldNode& field);
+    OrdinaryTree(const fieldNode& field, const std::vector<OrdinaryTree*>& child);
+
+    /*методы*/
+
+    /*дружественные функции*/
+    friend bool equalOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s); /*сравнение двух деревьев*/
+    friend void deleteOrdinaryTree(OrdinaryTree* n);  /*удаление дерева, применять для вершины, удаляется и вершина!*/
+    friend bool compareOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s); /*сравнение узлов*/
+    friend void createOrdinaryTree(OrdinaryTree* ord, const Node* n, const Node* previous, bool isFirst);
+    /*Создание дерева из вершины бинарного дерева, должна быть выделена память на prd, выделяется память, необходимо ее очистить!*/
 };

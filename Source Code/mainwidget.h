@@ -25,8 +25,8 @@ private:
     Ui::MainWidget *ui;
     FormTreeGenerate *formTreeGenerate;
     FromTreeManipulation *fromTreeManipulation;
-    std::vector<Node*> his;
-    std::vector<Node*> head;
+    std::vector<const Node*> his;
+    std::vector<const Node*> head;
 
     /*methods*/
 };

@@ -274,7 +274,7 @@ Node::Node(fieldNode field)
         this->right = nullptr;
 }
 
-Node::Node(fieldNode field, Node* left, Node* right)
+Node::Node(fieldNode field, const Node* left, const Node* right)
 {
         this->field = field;
         this->left = left;
@@ -348,12 +348,12 @@ const fieldNode& Node::getField() const
         return this->field;
 }
 
-Node* Node::getLeft()
+const Node* Node::getLeft() const
 {
         return this->left;
 }
 
-Node* Node::getRight()
+const Node* Node::getRight() const
 {
         return this->right;
 }
@@ -377,6 +377,8 @@ bool searchBinaryResult(bool l1, bool l2, operation oper)
                 return !(l1 & l2);
         case operation::PEIRCES_ARROW:
                 return !(l1 | l2);
+        case operation::NOT:
+            return false;
         }
         return false;
 }
@@ -401,7 +403,7 @@ bool searchBinaryResult(bool l1, bool l2, operation oper)
         return os;
 }*/
 
-void deleteNode(Node* n)
+void deleteNode(const Node* n)
 {
         if (n != nullptr)
         {
@@ -411,7 +413,7 @@ void deleteNode(Node* n)
         }
 }
 
-Node* copy(Node* n)
+Node* copy(const Node* n)
 {
         if (n == nullptr)
                 return nullptr;
@@ -420,4 +422,174 @@ Node* copy(Node* n)
         newNode->left = copy(n->left);
         newNode->right = copy(n->right);
         return newNode;
+}
+
+void OrdinaryTree::addChild(OrdinaryTree* ord)
+{
+    this->child.push_back(ord);
+}
+
+void OrdinaryTree::addField(const fieldNode& field)
+{
+    this->field = field;
+}
+
+OrdinaryTree::OrdinaryTree()
+    :field()
+{
+}
+
+OrdinaryTree::OrdinaryTree(const fieldNode& field)
+    : field(field)
+{
+}
+
+OrdinaryTree::OrdinaryTree(const fieldNode& field, const std::vector<OrdinaryTree*>& child)
+    : field(field), child(child)
+{
+}
+
+bool equalOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s)
+{
+    if (f->field == s->field)
+    {
+        if (f->child.size() == s->child.size())
+        {
+            for (size_t i = 0; i < f->child.size(); i++)
+            {
+                if (!equalOrdinaryTree(f->child[i], s->child[i]))
+                    return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool compareTree(const Node* n1, const Node* n2)
+{
+
+    OrdinaryTree* ord1 = new OrdinaryTree();
+    createOrdinaryTree(ord1, n1, n1, true);
+    OrdinaryTree* ord2 = new OrdinaryTree();
+    createOrdinaryTree(ord2, n2, n2, true);
+
+    bool isEqual = equalOrdinaryTree(ord1, ord2);
+
+    deleteOrdinaryTree(ord1);
+    deleteOrdinaryTree(ord2);
+
+    return isEqual;
+}
+
+void deleteOrdinaryTree(OrdinaryTree* n)
+{
+    if (n != nullptr)
+    {
+        for (size_t i = 0; i < n->child.size(); i++)
+        {
+            deleteOrdinaryTree(n->child[i]);
+        }
+        delete n;
+    }
+}
+
+bool compareOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s)
+{
+    if (f->field.type == s->field.type) /*если типы узлов равны*/
+    {
+        if (f->field.type == typeNode::VAR)
+        {
+            return f->field.var < s->field.var;
+        }
+        else if (f->field.type == typeNode::LOG_CONST)
+        {
+            return f->field.lConst < s->field.lConst;
+        }
+        else
+        {
+            return f->field.oper < s->field.oper;
+        }
+    }
+    else /*если типы узлов не равны*/
+    {
+        return f->field.type < s->field.type; /*сначала переменные, потом логические константы, потом операции*/
+    }
+}
+
+void createOrdinaryTree(OrdinaryTree* ord, const Node* n, const Node* previous, bool isFirst)
+{
+    if (isFirst)
+        ord->addField(n->getField());
+
+    if (n->getField().type == typeNode::OPERATION) /*если в текущем узле - операция*/
+    {
+        if (n->getField().oper == previous->getField().oper) /*если операция в текущем и прошлом узле одинаковые*/
+        {
+            if (n->getField().oper == operation::IMPLICATION) /*если импликация*/
+            {
+                if (!isFirst)
+                {
+                    OrdinaryTree* tmp = new OrdinaryTree(n->getField());
+                    createOrdinaryTree(tmp, n->getLeft(), n, false);
+                    createOrdinaryTree(tmp, n->getRight(), n, false);
+                    ord->addChild(tmp);
+                }
+                else
+                {
+                    createOrdinaryTree(ord, n->getLeft(), n, false);
+                    createOrdinaryTree(ord, n->getRight(), n, false);
+                }
+            }
+            else if (n->getField().oper == operation::NOT) /*если отрицание*/
+            {
+                OrdinaryTree* tmp = new OrdinaryTree(n->getField());
+                createOrdinaryTree(tmp, n->getRight(), n->getRight(), false);
+                ord->addChild(tmp);
+            }
+            else /*если не отрицание и не импликация*/
+            {
+                createOrdinaryTree(ord, n->getLeft(), n, false);
+
+                createOrdinaryTree(ord, n->getRight(), n, false);
+            }
+        }
+        else
+        {
+            OrdinaryTree* tmp = new OrdinaryTree(n->getField());
+            if (n->getLeft())
+            {
+                createOrdinaryTree(tmp, n->getLeft(), n, false); /*где-то тут проблема*/
+            }
+            if (n->getRight())
+            {
+                createOrdinaryTree(tmp, n->getRight(), n, false);
+            }
+            if (tmp->child.size())
+            {
+                ord->addChild(tmp);
+            }
+        }
+    }
+    else /*если переменная или логическая константа*/
+    {
+        OrdinaryTree* tmp = new OrdinaryTree(n->getField());
+        ord->addChild(tmp);
+    }
+
+
+    if (ord->child.size())
+    {
+        if (ord->field.type == typeNode::OPERATION && ord->field.oper != operation::IMPLICATION)
+        {
+            std::sort(ord->child.begin(), ord->child.end(), compareOrdinaryTree);
+        }
+    }
 }
