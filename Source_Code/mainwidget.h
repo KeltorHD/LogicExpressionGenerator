@@ -3,6 +3,9 @@
 
 #include "formtreegenerate.h"
 #include "fromtreemanipulation.h"
+#include "state.h"
+#include "menu.h"
+#include "settings.h"
 #include "node.h"
 
 #include <QWidget>
@@ -23,12 +26,18 @@ public:
 private:
     /*variable*/
     Ui::MainWidget *ui;
-    FormTreeGenerate *formTreeGenerate;
-    FromTreeManipulation *fromTreeManipulation;
+    State* state; /*класс настроек*/
+
+    FormTreeGenerate *formTreeGenerate;        /*экран генерации*/
+    FromTreeManipulation *fromTreeManipulation;/*экран взаимодействия с формулами*/
+    Menu *menu;                                /*экран меню*/
+    Settings *settings;                        /*экран настроек*/
+
     std::vector<const Node*> his;
     std::vector<const Node*> head;
 
     /*methods*/
+    void init();
 };
 
 #endif // MAINWIDGET_H

@@ -5,8 +5,12 @@
 #include <QTextStream>
 #include <QDebug>
 
-FromTreeManipulation::FromTreeManipulation(std::vector<const Node*>& _his, std::vector<const Node*>& _head, QStackedWidget *stWidget, QWidget *parent) :
-    QWidget(parent), ui(new Ui::FromTreeManipulation), his(_his), head(_head)
+FromTreeManipulation::FromTreeManipulation(std::vector<const Node*>& _his,
+                                           std::vector<const Node*>& _head,
+                                           State *state,
+                                           QStackedWidget *stWidget,
+                                           QWidget *parent) :
+    QWidget(parent), ui(new Ui::FromTreeManipulation), his(_his), head(_head), state(state)
 {
     ui->setupUi(this);
     this->stWidget = stWidget;

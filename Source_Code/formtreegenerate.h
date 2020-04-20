@@ -1,6 +1,7 @@
 #ifndef FORMTREEGENERATE_H
 #define FORMTREEGENERATE_H
 
+#include "state.h"
 #include "tree.h"
 
 #include <QWidget>
@@ -18,6 +19,7 @@ public:
     explicit FormTreeGenerate(
             std::vector<const Node*>& _his,
             std::vector<const Node*>& _head,
+            State *state,
             QStackedWidget *stWidget,
             QWidget *parent = nullptr);
     ~FormTreeGenerate();
@@ -25,10 +27,13 @@ public:
 private:
     /*variable*/
     Ui::FormTreeGenerate *ui;
+
     int masX[VARIABLE_COUNT]; /*массив количества переменных*/
     bool masOp[8]; /*массив операций*/
     bool masLg[2]; /*массив логических констант*/
+
     QStackedWidget *stWidget; /*указатель на внешний виджет*/
+    State *state; /*класс настроек*/
     std::vector<const Node*>& his; /*указатель на переменные*/
     std::vector<const Node*>& head; /*указатель на корни деревьев*/
 

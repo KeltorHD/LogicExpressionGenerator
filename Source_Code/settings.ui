@@ -18,6 +18,11 @@
     <layout class="QVBoxLayout" name="verticalLayout_7">
      <item>
       <spacer name="verticalSpacer_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -33,6 +38,11 @@
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,3,0">
        <item>
         <spacer name="horizontalSpacer">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -48,6 +58,11 @@
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <widget class="QLabel" name="language">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Язык</string>
            </property>
@@ -55,6 +70,11 @@
          </item>
          <item>
           <widget class="QLabel" name="sign">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Знаки операций</string>
            </property>
@@ -65,15 +85,32 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QComboBox" name="comboLangBox"/>
+          <widget class="QComboBox" name="comboLangBox">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboSingBox"/>
+          <widget class="QComboBox" name="comboSingBox">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
         <spacer name="horizontalSpacer_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -89,6 +126,11 @@
      </item>
      <item>
       <spacer name="verticalSpacer">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -104,6 +146,11 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <spacer name="horizontalSpacer_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -117,6 +164,11 @@
        </item>
        <item>
         <widget class="QPushButton" name="save">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Сохранить</string>
          </property>
@@ -124,6 +176,11 @@
        </item>
        <item>
         <widget class="QPushButton" name="backToMenu">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>В меню</string>
          </property>

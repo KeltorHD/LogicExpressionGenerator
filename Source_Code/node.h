@@ -1,10 +1,17 @@
 #pragma once
+/*
+Заголовочный файл с основными перечислениями и классами в проекте
+Перечисления: переменная, лог. константа, операции, тип узла, поле узла
+Классы: узел бинарного дерева, узел n-мерного дерева
+*/
 
-#include <QTextStream>
 #include <iostream>
+#include <QTextStream>
+#include <algorithm>
+#include <vector>
 
 #define OPERATION_COUNT 7 /*без отрицания*/
-#define VARIABLE_COUNT 10
+#define VARIABLE_COUNT 10 /*количество переменных*/
 
 
 enum class variable  /*переменные, используещиеся в генераторе*/
@@ -30,6 +37,33 @@ enum class typeNode /*тип того, что хранится в узле*/
     VAR = 0,   /*обычная переменная, X, Y, Z, T*/
     LOG_CONST, /*константа, 1, 0*/
     OPERATION  /*операция, +, *, -> и тд*/
+};
+
+enum class varType /*тип того, как выглядят переменные*/
+{
+    XYZ = 0, /*переменные называются X, Y, Z, Y..*/
+    X1X2X3,  /*переменные называются X1, X2, X3, X4..*/
+    ABC      /*переменные называются A, B, C, D..*/
+};
+
+enum class opType /*тип того, как выглядят операции*/
+{
+    MATH = 0, /* операции имеют вид +, *, (+) */
+    LOG       /* операции имеют вид крышечек */
+};
+
+enum class langType /*тип локализации*/
+{
+    EN = 0,
+    RU
+};
+
+enum class screen /*тип экрана*/
+{
+    MENU = 0,
+    SETTINGS,
+    GENERATE,
+    MANIPULATION
 };
 
 struct fieldNode    /*поле узла*/
@@ -109,30 +143,33 @@ public:
     const Node* getRight() const;
 };
 
-class OrdinaryTree   /*класс обычного дерева*/
+class OrdinaryTree   /*класс n-мерного дерева*/
 {
 private:
     fieldNode field; /*то, что зранится в узле*/
-    std::vector<OrdinaryTree*> child; /*вектор указателей на детей*/
+    std::vector<const OrdinaryTree*> child; /*вектор указателей на потомков*/
 
     OrdinaryTree(const OrdinaryTree&); /*конструктор копирования*/
-    OrdinaryTree& operator=(const OrdinaryTree&) { return *this; }; /*оператор присваивания*/
+    OrdinaryTree& operator=(const OrdinaryTree&) { return *this;}; /*оператор присваивания*/
 
     /*методы*/
-    void addChild(OrdinaryTree* ord); /*добавление ребенка*/
+    void addChild(OrdinaryTree* ord); /*добавление потомка*/
     void addField(const fieldNode& field);
 
 public:
     OrdinaryTree();
     OrdinaryTree(const fieldNode& field);
-    OrdinaryTree(const fieldNode& field, const std::vector<OrdinaryTree*>& child);
+    OrdinaryTree(const fieldNode& field, const std::vector<const OrdinaryTree*>& child);
 
     /*методы*/
 
     /*дружественные функции*/
-    friend bool equalOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s); /*сравнение двух деревьев*/
-    friend void deleteOrdinaryTree(OrdinaryTree* n);  /*удаление дерева, применять для вершины, удаляется и вершина!*/
-    friend bool compareOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s); /*сравнение узлов*/
+    friend bool equalOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s);
+    /*сравнение двух деревьев, true - если равны, false - не равны*/
+    friend void deleteOrdinaryTree(const OrdinaryTree* n);
+    /*удаление дерева, применять для вершины, удаляется и вершина!*/
+    friend bool compareOrdinaryTree(const OrdinaryTree* f, const OrdinaryTree* s);
+    /*сравнение узлов, сравнение происходит по положению перечислениях!*/
     friend void createOrdinaryTree(OrdinaryTree* ord, const Node* n, const Node* previous, bool isFirst);
     /*Создание дерева из вершины бинарного дерева, должна быть выделена память на prd, выделяется память, необходимо ее очистить!*/
 };

@@ -28,6 +28,7 @@ SOURCES += \
     menu.cpp \
     node.cpp \
     settings.cpp \
+    state.cpp \
     tree.cpp
 
 HEADERS += \
@@ -37,6 +38,7 @@ HEADERS += \
     menu.h \
     node.h \
     settings.h \
+    state.h \
     tree.h
 
 FORMS += \

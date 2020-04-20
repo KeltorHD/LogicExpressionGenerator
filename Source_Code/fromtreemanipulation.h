@@ -1,6 +1,7 @@
 #ifndef FROMTREEMANIPULATION_H
 #define FROMTREEMANIPULATION_H
 
+#include "state.h"
 #include "tree.h"
 
 #include <QWidget>
@@ -18,6 +19,7 @@ public:
     explicit FromTreeManipulation(
             std::vector<const Node*>& _his,
             std::vector<const Node*>& _head,
+            State *state,
             QStackedWidget *stWidget,
             QWidget *parent = nullptr);
     ~FromTreeManipulation();
@@ -27,6 +29,8 @@ private:
     /*variable*/
     Ui::FromTreeManipulation *ui;
     QStackedWidget *stWidget; /*указатель на внешний виджет*/
+    State *state; /*класс настроек*/
+
     std::vector<const Node*>& his; /*указатель на переменные*/
     std::vector<const Node*>& head; /*указатель на корни деревьев*/
 
