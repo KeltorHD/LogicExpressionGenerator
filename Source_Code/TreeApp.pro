@@ -25,20 +25,26 @@ SOURCES += \
     fromtreemanipulation.cpp \
     main.cpp \
     mainwidget.cpp \
+    menu.cpp \
     node.cpp \
+    settings.cpp \
     tree.cpp
 
 HEADERS += \
     formtreegenerate.h \
     fromtreemanipulation.h \
     mainwidget.h \
+    menu.h \
     node.h \
+    settings.h \
     tree.h
 
 FORMS += \
     formtreegenerate.ui \
     fromtreemanipulation.ui \
-    mainwidget.ui
+    mainwidget.ui \
+    menu.ui \
+    settings.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
