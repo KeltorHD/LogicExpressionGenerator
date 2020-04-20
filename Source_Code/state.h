@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QString>
 
-#define settingsFile "settings.ini"
+#define settingsFile "state.ini"
 
 class State /*класс с настройками приложения*/
 {

@@ -5,6 +5,11 @@ State::State()
     this->init();
 }
 
+State::~State()
+{
+    save();
+}
+
 void State::setVar(const varType &var)
 {
     this->var = var;
@@ -78,6 +83,6 @@ void State::init()
         qWarning("No such file");
         this->var = varType::XYZ;
         this->oper = opType::MATH;
-        this->lang = langType::EN;
+        this->lang = langType::RU;
     }
 }

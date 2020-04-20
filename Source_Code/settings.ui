@@ -80,12 +80,25 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Вид переменных</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QComboBox" name="comboLangBox">
+          <widget class="QComboBox" name="comboLang">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -94,9 +107,19 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboSingBox">
+          <widget class="QComboBox" name="comboOper">
            <property name="font">
             <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboVar">
+           <property name="font">
+            <font>
+             <family>Arial</family>
              <pointsize>12</pointsize>
             </font>
            </property>

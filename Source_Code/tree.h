@@ -31,4 +31,4 @@ void outputSdnf(std::vector<const Node*>& his, std::vector<const Node*>& head, Q
 
 void outputSknf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
 
-void buildTableTruth(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
+void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os, const QStringList* varList, int var);

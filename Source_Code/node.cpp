@@ -40,6 +40,46 @@ QTextStream& operator<<(QTextStream& os, const variable& v)
         return os;
 }
 
+QTextStream& displayTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var)
+{
+    switch (v)
+    {
+    case variable::X:
+            os << listVar[var][0];
+            break;
+    case variable::Y:
+            os << listVar[var][1];
+            break;
+    case variable::Z:
+            os << listVar[var][2];
+            break;
+    case variable::T:
+            os << listVar[var][3];
+            break;
+    case variable::K:
+            os << listVar[var][4];
+            break;
+    case variable::L:
+            os << listVar[var][5];
+            break;
+    case variable::M:
+            os << listVar[var][6];
+            break;
+    case variable::N:
+            os << listVar[var][7];
+            break;
+    case variable::P:
+            os << listVar[var][8];
+            break;
+    case variable::S:
+            os << listVar[var][9];
+            break;
+    default:
+            break;
+    }
+    return os;
+}
+
 QTextStream& operator<<(QTextStream& os, const log_const& l)
 {
         switch (l)
@@ -285,14 +325,14 @@ Node::~Node()
 {
 }
 
-void Node::qStringDisplay(int n, QTextStream &os) const
+void Node::qStringDisplay(int n, QTextStream &os, const QStringList* varList, int var) const
 {
     if (this->field.type != typeNode::VAR && this->field.type != typeNode::LOG_CONST
             && n != 0)
             os << "(";
     if (this->left)
     {
-            this->left->qStringDisplay(1, os);
+            this->left->qStringDisplay(1, os, varList, var);
     }
     if (this->field.type == typeNode::OPERATION)
     {
@@ -300,12 +340,12 @@ void Node::qStringDisplay(int n, QTextStream &os) const
     }
     if (this->right)
     {
-            this->right->qStringDisplay(1, os);
+            this->right->qStringDisplay(1, os, varList, var);
     }
     if (!this->left && !this->right)
     {
             if (this->field.type == typeNode::VAR)
-                    os << this->field.var;
+                    displayTextStream(os, this->field.var, varList, var);
             else if (this->field.type == typeNode::LOG_CONST)
                     os << this->field.lConst;
     }

@@ -589,7 +589,7 @@ void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head,
     }
 }
 
-void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os)
+void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os, const QStringList* varList, int var)
 {
     std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
@@ -617,7 +617,7 @@ void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &
                 os << hisTMP[i]->getField().lConst << '\t';
         }
 
-        head[it]->qStringDisplay(0, os);
+        head[it]->qStringDisplay(0, os, varList, var);
         os << endl;
 
         for (size_t j = 0; j < static_cast<size_t>(pow(2, hisTMP.size())); j++)

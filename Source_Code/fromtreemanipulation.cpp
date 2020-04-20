@@ -9,11 +9,12 @@ FromTreeManipulation::FromTreeManipulation(std::vector<const Node*>& _his,
                                            std::vector<const Node*>& _head,
                                            State *state,
                                            QStackedWidget *stWidget,
-                                           QWidget *parent) :
-    QWidget(parent), ui(new Ui::FromTreeManipulation), his(_his), head(_head), state(state)
+                                           QWidget *parent)
+    : QWidget(parent), ui(new Ui::FromTreeManipulation), his(_his), head(_head)
 {
     ui->setupUi(this);
     this->stWidget = stWidget;
+    this->state = state;
 
     /*Кнопки из левого ряда по-умолчанию выключены*/
     ui->del->setDisabled(true);
@@ -21,6 +22,8 @@ FromTreeManipulation::FromTreeManipulation(std::vector<const Node*>& _his,
     ui->sknf->setDisabled(true);
     ui->table->setDisabled(true);
     ui->save->setDisabled(true);
+
+    connect(ui->backToMenu, &QPushButton::clicked, this, &FromTreeManipulation::backToMenu);
 
     connect(ui->listWidget, &QListWidget::itemClicked, this, &FromTreeManipulation::itemChanged); /*если нажать на формулу, станут доступны кнопки*/
     connect(ui->del, &QPushButton::clicked, this, &FromTreeManipulation::deleteItem); /*нажатие на кнопку Удалить*/
@@ -290,7 +293,7 @@ void FromTreeManipulation::tableItem()
             QTextStream stream(&file);
             std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
-            buildTableTruth(his, headOne, stream);
+            buildTableTruth(his, headOne, stream, varList, int(state->getVar()));
             stream.flush();
             file.close();
         }
@@ -312,7 +315,7 @@ void FromTreeManipulation::tableAllItem()
         else
         {
             QTextStream stream(&file);
-            buildTableTruth(his, head, stream);
+            buildTableTruth(his, head, stream, varList, int(state->getVar()));
             stream.flush();
             file.close();
         }
@@ -320,6 +323,24 @@ void FromTreeManipulation::tableAllItem()
 }
 
 void FromTreeManipulation::generateAnother()
+{
+    restore();
+    stWidget->setCurrentIndex(int(screen::GENERATE));
+}
+
+void FromTreeManipulation::updateTree()
+{
+    for (size_t i = 0; i < head.size(); ++i)
+    {
+        QString s;
+        QTextStream os(&s);
+        os<<"%1.";
+        head[i]->qStringDisplay(0, os, varList, int(state->getVar()));
+        ui->listWidget->addItem(s.arg(i+1));
+    }
+}
+
+void FromTreeManipulation::restore()
 {
     /*восстановление исходного состояния*/
     ui->del->setDisabled(true);
@@ -352,17 +373,10 @@ void FromTreeManipulation::generateAnother()
     {
         ui->listWidget->clear();
     }
-    stWidget->setCurrentIndex(2);
 }
 
-void FromTreeManipulation::updateTree()
+void FromTreeManipulation::backToMenu()
 {
-    for (size_t i = 0; i < head.size(); ++i)
-    {
-        QString s;
-        QTextStream os(&s);
-        os<<"%1.";
-        head[i]->qStringDisplay(0, os);
-        ui->listWidget->addItem(s.arg(i+1));
-    }
+    restore();
+    stWidget->setCurrentIndex(int(screen::MENU));
 }

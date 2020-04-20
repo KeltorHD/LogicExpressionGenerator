@@ -10,30 +10,18 @@ FormTreeGenerate::FormTreeGenerate(std::vector<const Node*>& _his,
                                    State *state,
                                    QStackedWidget *stWidget,
                                    QWidget *parent) :
-    QWidget(parent), ui(new Ui::FormTreeGenerate), his(_his), head(_head), state(state)
+    QWidget(parent), ui(new Ui::FormTreeGenerate), his(_his), head(_head)
 {
     ui->setupUi(this);
     this->stWidget = stWidget;
+    this->state = state;
 
-    for (int var = 0; var < VARIABLE_COUNT; ++var)
-    {
-        masX[var] = 0;
-    }
+    init();
 
-    masOp[0] = masOp[1] = masOp[2] = true;
-    for (int var = 3; var < 8; ++var)
-    {
-        masOp[var] = false;
-    }
-
-    for (int var = 0; var < 2; ++var)
-    {
-        masLg[var] = false;
-    }
 
     checkGenerate(); /*проверка на возможность генерации*/
 
-    connect(ui->quitBtn, &QPushButton::clicked, qApp, &QApplication::quit); /*кнопка выход*/
+    connect(ui->backToMenu, &QPushButton::clicked, this, &FormTreeGenerate::backToMenu); /*кнопка выход*/
     connect(ui->X, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &FormTreeGenerate::spinBoxChanged); /*изменение значений переменных*/
     connect(ui->Y, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &FormTreeGenerate::spinBoxChanged); /*изменение значений переменных*/
     connect(ui->Z, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &FormTreeGenerate::spinBoxChanged); /*изменение значений переменных*/
@@ -64,6 +52,85 @@ FormTreeGenerate::FormTreeGenerate(std::vector<const Node*>& _his,
 FormTreeGenerate::~FormTreeGenerate()
 {
     delete ui;
+}
+
+void FormTreeGenerate::init()
+{
+    for (int var = 0; var < VARIABLE_COUNT; ++var)
+    {
+        masX[var] = 0;
+    }
+    masOp[0] = masOp[1] = masOp[2] = true;
+    for (int var = 3; var < 8; ++var)
+    {
+        masOp[var] = false;
+    }
+    for (int var = 0; var < 2; ++var)
+    {
+        masLg[var] = false;
+    }
+}
+
+void FormTreeGenerate::setVarText()
+{
+    ui->lX->setText(varList[size_t(state->getVar())][0]);
+    ui->lY->setText(varList[size_t(state->getVar())][1]);
+    ui->lZ->setText(varList[size_t(state->getVar())][2]);
+    ui->lT->setText(varList[size_t(state->getVar())][3]);
+    ui->lK->setText(varList[size_t(state->getVar())][4]);
+    ui->lL->setText(varList[size_t(state->getVar())][5]);
+    ui->lM->setText(varList[size_t(state->getVar())][6]);
+    ui->lN->setText(varList[size_t(state->getVar())][7]);
+    ui->lP->setText(varList[size_t(state->getVar())][8]);
+    ui->lS->setText(varList[size_t(state->getVar())][9]);
+}
+
+void FormTreeGenerate::restore()
+{
+    /*восстановление прежнего состояния*/
+    for (int var = 0; var < VARIABLE_COUNT; ++var)
+    {
+        masX[var] = 0;
+    }
+    ui->X->setValue(masX[0]);
+    ui->Y->setValue(masX[1]);
+    ui->Z->setValue(masX[2]);
+    ui->T->setValue(masX[3]);
+    ui->K->setValue(masX[4]);
+    ui->L->setValue(masX[5]);
+    ui->M->setValue(masX[6]);
+    ui->N->setValue(masX[7]);
+    ui->P->setValue(masX[8]);
+    ui->S->setValue(masX[9]);
+
+    masOp[0] = masOp[1] = masOp[2] = true;
+    for (int var = 3; var < 8; ++var)
+    {
+        masOp[var] = false;
+    }
+    ui->OR->setChecked(true);
+    ui->NOT->setChecked(true);
+    ui->AND->setChecked(true);
+    ui->IMPLICATION->setChecked(false);
+    ui->XOR->setChecked(false);
+    ui->HATCH->setChecked(false);
+    ui->EKV->setChecked(false);
+    ui->PIERCE->setChecked(false);
+
+    for (int var = 0; var < 2; ++var)
+    {
+        masLg[var] = false;
+    }
+    ui->lgTrue->setChecked(false);
+    ui->lgFalse->setChecked(false);
+
+    ui->sCountFormula->setValue(0);
+}
+
+void FormTreeGenerate::backToMenu()
+{
+    restore();
+    stWidget->setCurrentIndex(int(screen::MENU));
 }
 
 void FormTreeGenerate::spinBoxChanged(int var)
@@ -273,45 +340,9 @@ void FormTreeGenerate::generateClick()
         /*генерация*/
         generateNode(his, head, oper, isNot, static_cast<size_t>(ui->sCountFormula->value()));
 
-        /*восстановление прежнего состояния*/
-        for (int var = 0; var < VARIABLE_COUNT; ++var)
-        {
-            masX[var] = 0;
-        }
-        ui->X->setValue(masX[0]);
-        ui->Y->setValue(masX[1]);
-        ui->Z->setValue(masX[2]);
-        ui->T->setValue(masX[3]);
-        ui->K->setValue(masX[4]);
-        ui->L->setValue(masX[5]);
-        ui->M->setValue(masX[6]);
-        ui->N->setValue(masX[7]);
-        ui->P->setValue(masX[8]);
-        ui->S->setValue(masX[9]);
+        restore();
 
-        masOp[0] = masOp[1] = masOp[2] = true;
-        for (int var = 3; var < 8; ++var)
-        {
-            masOp[var] = false;
-        }
-        ui->OR->setChecked(true);
-        ui->NOT->setChecked(true);
-        ui->AND->setChecked(true);
-        ui->IMPLICATION->setChecked(false);
-        ui->XOR->setChecked(false);
-        ui->HATCH->setChecked(false);
-        ui->EKV->setChecked(false);
-        ui->PIERCE->setChecked(false);
-
-        for (int var = 0; var < 2; ++var)
-        {
-            masLg[var] = false;
-        }
-        ui->lgTrue->setChecked(false);
-        ui->lgFalse->setChecked(false);
-
-        ui->sCountFormula->setValue(0);
-        stWidget->setCurrentIndex(1);
+        stWidget->setCurrentIndex(int(screen::MANIPULATION));
     }
 }
 

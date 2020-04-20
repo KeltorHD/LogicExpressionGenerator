@@ -7,12 +7,13 @@
 
 #include <iostream>
 #include <QTextStream>
+#include <QStringList>
 #include <algorithm>
 #include <vector>
 
 #define OPERATION_COUNT 7 /*без отрицания*/
 #define VARIABLE_COUNT 10 /*количество переменных*/
-
+#define VARIABLE_TYPE_COUNT 3 /*количество типов выводов переменных*/
 
 enum class variable  /*переменные, используещиеся в генераторе*/
 {
@@ -113,6 +114,9 @@ void displayOperationHint(const operation& op);
 
 bool operator==(const fieldNode& f1, const fieldNode& f2);
 
+/*отображение переменнойв зависимости от настроек*/
+QTextStream& displayTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var);
+
 class Node
 {
 private:
@@ -131,7 +135,7 @@ public:
 
     /*методы*/
     void display(int n = 0, std::ostream& os = std::cout) const;   /*вывод дерева на экран*/
-    void qStringDisplay(int n, QTextStream& os) const;
+    void qStringDisplay(int n, QTextStream& os, const QStringList* varList, int var) const;
     //void tableDisplay(int n = 0) const;   /*вывод дерева для таблицы истинности*/
     friend bool compareTree(const Node* n1, const Node* n2);
     friend void deleteNode(const Node* n); /*удаление дерева, применять для вершины, удаляется и вершина!*/

@@ -24,6 +24,9 @@ public:
             QWidget *parent = nullptr);
     ~FormTreeGenerate();
 
+    /*методы*/
+    void setVarText(); /*задание текста переменным*/
+
 private:
     /*variable*/
     Ui::FormTreeGenerate *ui;
@@ -37,7 +40,17 @@ private:
     std::vector<const Node*>& his; /*указатель на переменные*/
     std::vector<const Node*>& head; /*указатель на корни деревьев*/
 
+    QStringList varList[3] =
+    {
+        {"X", "Y", "Z", "T", "K", "L", "M", "N", "P", "S"},
+        {"X1", "X2", "X3", "X4", "X5", "X6", "X7", "X8", "X9", "X10"},
+        {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"}
+    };
+
     /*methods*/
+    void init();
+    void restore(); /*восстановление исходного состояния виджета*/
+    void backToMenu(); /*выход в меню*/
     void spinBoxChanged(int var); /*изменение значений переменных*/
     void checkBoxOPChanged(int state); /*изменение операций в генерации*/
     void checkBoxLgChanged(int state); /*изменение наличия логических констант*/

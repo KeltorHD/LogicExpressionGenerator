@@ -9,6 +9,7 @@ Menu::Menu(QStackedWidget *stWidget, QWidget *parent) :
 
     connect(ui->generate, &QPushButton::clicked, this, &Menu::generate);
     connect(ui->settings, &QPushButton::clicked, this, &Menu::settings);
+    connect(ui->quit, &QPushButton::clicked, qApp, &QApplication::quit);
 }
 
 Menu::~Menu()
