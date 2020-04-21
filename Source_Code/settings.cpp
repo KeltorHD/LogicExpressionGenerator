@@ -47,19 +47,15 @@ void Settings::init()
 {
     QStringList listVar = {"X, Y, Z, ..", "X1, X2, X3, ..", "A, B, C, .."};
     QStringList listOper = {"~, +, *, (+)", "¬, ∧, ∨, ⊕, ⇔"};
-    QStringList listLang = {"EN", "RU"};
+    QStringList listLang = {"EN", "RU", "DE"};
 
-    ui->comboVar->addItem(listVar[0]);
-    ui->comboVar->addItem(listVar[1]);
-    ui->comboVar->addItem(listVar[2]);
+    ui->comboVar->addItems(listVar);
     ui->comboVar->setCurrentIndex(int(state->getVar()));
 
-    ui->comboOper->addItem(listOper[0]);
-    ui->comboOper->addItem(listOper[1]);
+    ui->comboOper->addItems(listOper);
     ui->comboOper->setCurrentIndex(int(state->getOper()));
 
-    ui->comboLang->addItem(listLang[0]);
-    ui->comboLang->addItem(listLang[1]);
+    ui->comboLang->addItems(listLang);
     ui->comboLang->setCurrentIndex(int(state->getLang()));
 }
 

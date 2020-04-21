@@ -57,7 +57,8 @@ enum class opType /*тип того, как выглядят операции*/
 enum class langType /*тип локализации*/
 {
     EN = 0,
-    RU
+    RU,
+    DE
 };
 
 enum class screen /*тип экрана*/

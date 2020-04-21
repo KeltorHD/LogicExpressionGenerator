@@ -13,6 +13,9 @@ State::State(QTranslator& qtr)
     case langType::EN:
         qtLanguageTranslator.load(QString("TreeApp_en"));
         break;
+    case langType::DE:
+        qtLanguageTranslator.load(QString("TreeApp_de"));
+        break;
     }
     qApp->installTranslator(&qtLanguageTranslator);
 }
@@ -42,6 +45,9 @@ void State::setLang(const langType &lang)
         break;
     case langType::EN:
         qtLanguageTranslator.load(QString("TreeApp_en"));
+        break;
+    case langType::DE:
+        qtLanguageTranslator.load(QString("TreeApp_de"));
         break;
     }
     qApp->installTranslator(&qtLanguageTranslator);

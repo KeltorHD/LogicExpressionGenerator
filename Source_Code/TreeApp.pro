@@ -49,7 +49,8 @@ FORMS += \
     settings.ui
 
 TRANSLATIONS += TreeApp_ru.ts
-TreeApp_en.ts
+TRANSLATIONS += TreeApp_en.ts
+TRANSLATIONS += TreeApp_de.ts
 
 CODECFORSRC     = UTF-8
 
