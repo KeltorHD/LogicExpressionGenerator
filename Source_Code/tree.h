@@ -27,8 +27,14 @@ void generateNode(std::vector<const Node*>& his, std::vector<const Node*>& head,
 
 bool findLogicValue(std::vector<const Node*>& his, const Node* head, std::vector<bool>& xyz);
 
-void outputSdnf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
+void outputSdnf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os,
+                const QStringList* varList, int var,
+                const QStringList* operList, int oper);
 
-void outputSknf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os);
+void outputSknf(std::vector<const Node*>& his, std::vector<const Node*>& head, QTextStream& os,
+                const QStringList* varList, int var,
+                const QStringList* operList, int oper);
 
-void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os, const QStringList* varList, int var);
+void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os,
+                     const QStringList* varList, int var,
+                     const QStringList* operList, int oper);

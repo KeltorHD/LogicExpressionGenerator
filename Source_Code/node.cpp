@@ -40,7 +40,7 @@ QTextStream& operator<<(QTextStream& os, const variable& v)
         return os;
 }
 
-QTextStream& displayTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var)
+QTextStream& displayVarTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var)
 {
     switch (v)
     {
@@ -76,6 +76,114 @@ QTextStream& displayTextStream(QTextStream& os, const variable& v, const QString
             break;
     default:
             break;
+    }
+    return os;
+}
+
+QTextStream &displayOperTextStream(QTextStream &os, const operation &op, const QStringList *listOper, int oper)
+{
+    switch (op)
+    {
+    case operation::AND:
+        os << listOper[oper][0];
+        break;
+    case operation::OR:
+        os << listOper[oper][1];
+        break;
+    case operation::NOT:
+        os << listOper[oper][2];
+        break;
+    case operation::IMPLICATION:
+        os << listOper[oper][3];
+        break;
+    case operation::XOR:
+        os << listOper[oper][4];
+        break;
+    case operation::EQUIVALENCE:
+        os << listOper[oper][5];
+        break;
+    case operation::SHEFFER_STROKE:
+        os << listOper[oper][6];
+        break;
+    case operation::PEIRCES_ARROW:
+        os << listOper[oper][7];
+        break;
+    default:
+        break;
+    }
+    return os;
+}
+
+std::wostream &displayVarStringStream(std::wostream &os, const variable &v, const QStringList *listVar, int var)
+{
+    switch (v)
+    {
+    case variable::X:
+            os << listVar[var][0].toStdWString();
+            break;
+    case variable::Y:
+            os << listVar[var][1].toStdWString();
+            break;
+    case variable::Z:
+            os << listVar[var][2].toStdWString();
+            break;
+    case variable::T:
+            os << listVar[var][3].toStdWString();
+            break;
+    case variable::K:
+            os << listVar[var][4].toStdWString();
+            break;
+    case variable::L:
+            os << listVar[var][5].toStdWString();
+            break;
+    case variable::M:
+            os << listVar[var][6].toStdWString();
+            break;
+    case variable::N:
+            os << listVar[var][7].toStdWString();
+            break;
+    case variable::P:
+            os << listVar[var][8].toStdWString();
+            break;
+    case variable::S:
+            os << listVar[var][9].toStdWString();
+            break;
+    default:
+            break;
+    }
+    return os;
+}
+
+std::wostream &displayOperStringStream(std::wostream &os, const operation &op, const QStringList *listOper, int oper)
+{
+    switch (op)
+    {
+    case operation::AND:
+        os << listOper[oper][0].toStdWString();
+        break;
+    case operation::OR:
+        os << listOper[oper][1].toStdWString();
+        break;
+    case operation::NOT:
+        os << listOper[oper][2].toStdWString();
+        break;
+    case operation::IMPLICATION:
+        os << listOper[oper][3].toStdWString();
+        break;
+    case operation::XOR:
+        os << listOper[oper][4].toStdWString();
+        break;
+    case operation::EQUIVALENCE:
+        os << listOper[oper][5].toStdWString();
+        break;
+    case operation::SHEFFER_STROKE:
+        os << listOper[oper][6].toStdWString();
+        break;
+    case operation::PEIRCES_ARROW:
+        os << listOper[oper][7].toStdWString();
+        break;
+    default:
+        break;
     }
     return os;
 }
@@ -149,38 +257,7 @@ QTextStream& operator<<(QTextStream& os, const typeNode& tn)
         return os;
 }
 
-void displayOperationHint(const operation& op)
-{
-        switch (op)
-        {
-        case operation::AND:
-                std::cout << "*" << "    (Логическое И)";
-                break;
-        case operation::OR:
-                std::cout << "+" << "    (Логическое ИЛИ)";
-                break;
-        case operation::NOT:
-                std::cout << "~" << "    (Отрицание)";
-                break;
-        case operation::IMPLICATION:
-                std::cout << "->" << "   (Следование, импликация)";
-                break;
-        case operation::XOR:
-                std::cout << "(+)" << "  (Сложение по модулю 2, исключающее или)";
-                break;
-        case operation::EQUIVALENCE:
-                std::cout << "<=>" << "  (Эквиваленция)";
-                break;
-        case operation::SHEFFER_STROKE: /*изменить*/
-                std::cout << "|" << "    (Штрих Шеффера)";
-                break;
-        case operation::PEIRCES_ARROW:
-                std::cout << "||" << "   (Стрелка Пирса)";
-                break;
-        default:
-                break;
-        }
-}
+
 
 std::ostream& operator<<(std::ostream& os, const variable& v)
 {
@@ -325,27 +402,27 @@ Node::~Node()
 {
 }
 
-void Node::qStringDisplay(int n, QTextStream &os, const QStringList* varList, int var) const
+void Node::qStringDisplay(int n, QTextStream &os, const QStringList* varList, int var, const QStringList* operList, int oper) const
 {
     if (this->field.type != typeNode::VAR && this->field.type != typeNode::LOG_CONST
             && n != 0)
             os << "(";
     if (this->left)
     {
-            this->left->qStringDisplay(1, os, varList, var);
+            this->left->qStringDisplay(1, os, varList, var, operList, oper);
     }
     if (this->field.type == typeNode::OPERATION)
     {
-            os << this->field.oper;
+            displayOperTextStream(os, this->field.oper, operList, oper);
     }
     if (this->right)
     {
-            this->right->qStringDisplay(1, os, varList, var);
+            this->right->qStringDisplay(1, os, varList, var, operList, oper);
     }
     if (!this->left && !this->right)
     {
             if (this->field.type == typeNode::VAR)
-                    displayTextStream(os, this->field.var, varList, var);
+                    displayVarTextStream(os, this->field.var, varList, var);
             else if (this->field.type == typeNode::LOG_CONST)
                     os << this->field.lConst;
     }
@@ -585,3 +662,5 @@ void createOrdinaryTree(OrdinaryTree* ord, const Node* n, const Node* previous, 
         }
     }
 }
+
+

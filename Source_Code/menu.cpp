@@ -26,3 +26,12 @@ void Menu::settings()
 {
     stWidget->setCurrentIndex(int(screen::SETTINGS));
 }
+
+void Menu::changeEvent(QEvent *event)
+{
+    //В случае получения события изменения языка приложения
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);    // перевод окна
+    }
+}

@@ -26,6 +26,11 @@ public:
                       QWidget *parent = nullptr);
     ~Settings();
 
+protected:
+    // Метод получения событий в главном окне приложения
+    // В нём будет производиться проверка события смены перевода приложения
+    void changeEvent(QEvent * event) override;
+
 private:
     Ui::Settings *ui;
 

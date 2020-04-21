@@ -48,7 +48,17 @@ FORMS += \
     menu.ui \
     settings.ui
 
+TRANSLATIONS += TreeApp_ru.ts
+TreeApp_en.ts
+
+CODECFORSRC     = UTF-8
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES +=
+
+DISTFILES += \
+    state.ini

@@ -1,8 +1,20 @@
 #include "state.h"
 
-State::State()
+State::State(QTranslator& qtr)
+    :qtLanguageTranslator(qtr)
 {
     this->init();
+
+    switch (lang)
+    {
+    case langType::RU:
+        qtLanguageTranslator.load(QString("TreeApp_ru"));
+        break;
+    case langType::EN:
+        qtLanguageTranslator.load(QString("TreeApp_en"));
+        break;
+    }
+    qApp->installTranslator(&qtLanguageTranslator);
 }
 
 State::~State()
@@ -23,6 +35,16 @@ void State::setOper(const opType &oper)
 void State::setLang(const langType &lang)
 {
     this->lang = lang;
+    switch (lang)
+    {
+    case langType::RU:
+        qtLanguageTranslator.load(QString("TreeApp_ru"));
+        break;
+    case langType::EN:
+        qtLanguageTranslator.load(QString("TreeApp_en"));
+        break;
+    }
+    qApp->installTranslator(&qtLanguageTranslator);
 }
 
 const varType &State::getVar()
@@ -42,7 +64,7 @@ const langType &State::getLang()
 
 void State::save()
 {
-    QFile file(settingsFile);
+    QFile file("state.ini");
     QTextStream out;
 
     if (file.open(QIODevice::WriteOnly))
@@ -52,10 +74,11 @@ void State::save()
         out << int(this->var) << endl;
         out << int(this->oper) << endl;
         out << int(this->lang);
+        file.close();
     }
     else
     {
-        qWarning("Could not open file, settings.ini");
+        qWarning("Could not save file, state.ini");
     }
 }
 
@@ -68,19 +91,31 @@ void State::setAll(const varType &var, const opType &oper, const langType &lang)
 
 void State::init()
 {
-    QString filename(settingsFile);
+    QString filename("state.ini");
 
     if (QFile(filename).exists())
     {
-        QFile file(filename);
-        QTextStream in(&file);
-        this->var = varType(in.readLine().toInt());
-        this->oper = opType(in.readLine().toInt());
-        this->lang = langType(in.readLine().toInt());
+        QFile file(settingsFile);
+
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&file);
+            this->var = varType(in.readLine().toInt());
+            this->oper = opType(in.readLine().toInt());
+            this->lang = langType(in.readLine().toInt());
+            file.close();
+        }
+        else
+        {
+            qWarning("Could not open file, state.ini");
+            this->var = varType::XYZ;
+            this->oper = opType::MATH;
+            this->lang = langType::RU;
+        }
     }
     else
     {
-        qWarning("No such file");
+        qWarning("Could not exist file, state.ini");
         this->var = varType::XYZ;
         this->oper = opType::MATH;
         this->lang = langType::RU;

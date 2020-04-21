@@ -6,13 +6,15 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QString>
+#include <QTranslator>
+#include <QApplication>
 
 #define settingsFile "state.ini"
 
 class State /*класс с настройками приложения*/
 {
 public:
-    State();
+    State(QTranslator& qtr);
     ~State();
 
     /*get and set*/
@@ -20,7 +22,7 @@ public:
     void setOper(const opType& oper);
     void setLang(const langType& lang);
     const varType &getVar();
-    const opType& getOper();
+    const opType &getOper();
     const langType &getLang();
 
     /*методы*/
@@ -34,6 +36,7 @@ private:
     varType var;   /*тип отображения переменной*/
     opType oper;   /*тип отображения операции*/
     langType lang; /*тип локализации*/
+    QTranslator& qtLanguageTranslator; /*поле перевода*/
 
     /*методы*/
     void init();   /*инициализация из файла*/

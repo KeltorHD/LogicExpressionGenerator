@@ -25,7 +25,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Выберите переменные(&gt;=2), операции(&gt;=1), участвующих в генерации и кол-во формул:</string>
+        <string>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</string>
        </property>
       </widget>
      </item>
@@ -80,7 +80,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Переменные:</string>
+            <string>Variables:</string>
            </property>
           </widget>
          </item>
@@ -361,7 +361,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Всего: </string>
+              <string>Total: </string>
              </property>
             </widget>
            </item>
@@ -473,7 +473,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Операции:</string>
+            <string>Operations:</string>
            </property>
           </widget>
          </item>
@@ -488,7 +488,7 @@
               </font>
              </property>
              <property name="text">
-              <string>*, И</string>
+              <string/>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -504,7 +504,7 @@
               </font>
              </property>
              <property name="text">
-              <string>+, ИЛИ</string>
+              <string/>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -520,7 +520,7 @@
               </font>
              </property>
              <property name="text">
-              <string>~. НЕ</string>
+              <string/>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -543,7 +543,7 @@
               </font>
              </property>
              <property name="text">
-              <string>-&gt;, Следование</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -556,7 +556,7 @@
               </font>
              </property>
              <property name="text">
-              <string>(+), XOR</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -569,7 +569,7 @@
               </font>
              </property>
              <property name="text">
-              <string>&lt;=&gt;, Эквиваленция</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -582,7 +582,7 @@
               </font>
              </property>
              <property name="text">
-              <string>|, Штрих Шеффера</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -595,7 +595,7 @@
               </font>
              </property>
              <property name="text">
-              <string>||, Стрелка Пирса</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -675,7 +675,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Наличие логических констант:</string>
+            <string>Presence of logical constants:</string>
            </property>
           </widget>
          </item>
@@ -693,7 +693,7 @@
               </font>
              </property>
              <property name="text">
-              <string>0, Ложь</string>
+              <string>0, False</string>
              </property>
             </widget>
            </item>
@@ -706,7 +706,7 @@
               </font>
              </property>
              <property name="text">
-              <string>1, Истина</string>
+              <string>1, True</string>
              </property>
             </widget>
            </item>
@@ -786,7 +786,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Кол-во формул:</string>
+            <string>Number of formulas:</string>
            </property>
           </widget>
          </item>
@@ -801,7 +801,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Формул:</string>
+              <string>formulas:</string>
              </property>
             </widget>
            </item>
@@ -883,7 +883,7 @@
           <string/>
          </property>
          <property name="text">
-          <string>Генерация</string>
+          <string>Generate</string>
          </property>
         </widget>
        </item>
@@ -896,7 +896,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Выйти в меню</string>
+          <string>Back to menu</string>
          </property>
         </widget>
        </item>

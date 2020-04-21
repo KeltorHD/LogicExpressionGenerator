@@ -25,7 +25,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Генератор Логических выражений</string>
+        <string>LOGIC EXPRESSION GENERATOR</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -77,7 +77,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Генерация</string>
+            <string>Generation</string>
            </property>
           </widget>
          </item>
@@ -90,7 +90,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Настройки</string>
+            <string>Settings</string>
            </property>
           </widget>
          </item>
@@ -103,7 +103,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Выход</string>
+            <string>Exit</string>
            </property>
           </widget>
          </item>
@@ -154,7 +154,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Разработано: Прощенков Александр</string>
+          <string>Developed by Proschenkov Alexander</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

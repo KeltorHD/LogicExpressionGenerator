@@ -64,7 +64,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Язык</string>
+            <string>Language</string>
            </property>
           </widget>
          </item>
@@ -76,7 +76,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Знаки операций</string>
+            <string>Type of operation signs</string>
            </property>
           </widget>
          </item>
@@ -89,7 +89,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Вид переменных</string>
+            <string>Type of variable signs</string>
            </property>
           </widget>
          </item>
@@ -193,7 +193,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Сохранить</string>
+          <string>Save</string>
          </property>
         </widget>
        </item>
@@ -205,7 +205,7 @@
           </font>
          </property>
          <property name="text">
-          <string>В меню</string>
+          <string>Back to menu</string>
          </property>
         </widget>
        </item>

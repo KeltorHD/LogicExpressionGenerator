@@ -18,6 +18,11 @@ public:
     explicit Menu(QStackedWidget *stWidget, QWidget *parent = nullptr);
     ~Menu();
 
+protected:
+    // Метод получения событий в главном окне приложения
+    // В нём будет производиться проверка события смены перевода приложения
+    void changeEvent(QEvent * event) override;
+
 private:
     Ui::Menu *ui;
 

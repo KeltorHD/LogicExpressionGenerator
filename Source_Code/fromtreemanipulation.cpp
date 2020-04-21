@@ -145,7 +145,9 @@ void FromTreeManipulation::saveItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
-            stream << curitem->text();
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
+            stream << curitem->text().toUtf8();
             stream.flush();
             file.close();
         }
@@ -167,8 +169,10 @@ void FromTreeManipulation::saveAllItem()
         else
         {
             QTextStream stream(&file);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
             for (int i = 0; i < ui->listWidget->count(); i++)
-                stream << ui->listWidget->item(i)->text() << endl;
+                stream << ui->listWidget->item(i)->text().toUtf8() << endl;
             stream.flush();
             file.close();
         }
@@ -193,9 +197,12 @@ void FromTreeManipulation::sdnfItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
+            stream.setDevice(&file);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
             std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
-            outputSdnf(his, headOne, stream);
+            outputSdnf(his, headOne, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -217,7 +224,9 @@ void FromTreeManipulation::sdnfAllItem()
         else
         {
             QTextStream stream(&file);
-            outputSdnf(his, head, stream);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
+            outputSdnf(his, head, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -242,9 +251,11 @@ void FromTreeManipulation::sknfItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
             std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
-            outputSknf(his, headOne, stream);
+            outputSknf(his, headOne, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -266,7 +277,9 @@ void FromTreeManipulation::sknfAllItem()
         else
         {
             QTextStream stream(&file);
-            outputSknf(his, head, stream);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
+            outputSknf(his, head, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -291,9 +304,11 @@ void FromTreeManipulation::tableItem()
         else if (r != -1)
         {
             QTextStream stream(&file);
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
             std::vector<const Node*> headOne;
             headOne.push_back(head[r]);
-            buildTableTruth(his, headOne, stream, varList, int(state->getVar()));
+            buildTableTruth(his, headOne, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -315,7 +330,9 @@ void FromTreeManipulation::tableAllItem()
         else
         {
             QTextStream stream(&file);
-            buildTableTruth(his, head, stream, varList, int(state->getVar()));
+            stream.setCodec("UTF-8");
+            stream.setGenerateByteOrderMark(false);
+            buildTableTruth(his, head, stream, varList, int(state->getVar()), operList, int(state->getOper()));
             stream.flush();
             file.close();
         }
@@ -335,8 +352,17 @@ void FromTreeManipulation::updateTree()
         QString s;
         QTextStream os(&s);
         os<<"%1.";
-        head[i]->qStringDisplay(0, os, varList, int(state->getVar()));
+        head[i]->qStringDisplay(0, os, varList, int(state->getVar()), operList, int(state->getOper()));
         ui->listWidget->addItem(s.arg(i+1));
+    }
+}
+
+void FromTreeManipulation::changeEvent(QEvent *event)
+{
+    //В случае получения события изменения языка приложения
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);    // перевод окна
     }
 }
 

@@ -34,6 +34,15 @@ Settings::~Settings()
     delete ui;
 }
 
+void Settings::changeEvent(QEvent *event)
+{
+    //В случае получения события изменения языка приложения
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);    // перевод окна
+    }
+}
+
 void Settings::init()
 {
     QStringList listVar = {"X, Y, Z, ..", "X1, X2, X3, ..", "A, B, C, .."};
@@ -128,6 +137,7 @@ void Settings::save()
     {
         masSettings[i] = false;
     }
+    state->save();
 
     checkSave();
 }

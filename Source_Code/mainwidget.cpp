@@ -28,12 +28,15 @@ void MainWidget::update()
     if (ui->stackedWidget->currentIndex() == int(screen::MANIPULATION))
         fromTreeManipulation->updateTree();
     if (ui->stackedWidget->currentIndex() == int(screen::GENERATE))
+    {
         formTreeGenerate->setVarText();
+        formTreeGenerate->setOperText();
+    }
 }
 
 void MainWidget::init()
 {
-    state = new State();
+    state = new State(qtLanguageTranslator);
 
     menu = new Menu(ui->stackedWidget);
     settings = new Settings(state, ui->stackedWidget);
@@ -46,4 +49,12 @@ void MainWidget::init()
     ui->stackedWidget->insertWidget(int(screen::MANIPULATION), fromTreeManipulation);
 
     ui->stackedWidget->setCurrentIndex(int(screen::MENU));
+}
+
+void MainWidget::changeEvent(QEvent *event)
+{
+    // В случае получения события изменения языка приложения
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);    // переведём окно заново
+    }
 }

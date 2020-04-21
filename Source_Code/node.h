@@ -13,7 +13,8 @@
 
 #define OPERATION_COUNT 7 /*без отрицания*/
 #define VARIABLE_COUNT 10 /*количество переменных*/
-#define VARIABLE_TYPE_COUNT 3 /*количество типов выводов переменных*/
+#define VARIABLE_TYPE_COUNT 3 /*количество типов вида переменных*/
+#define OPERATION_TYPE_COUNT 2 /*количество типов вида операций*/
 
 enum class variable  /*переменные, используещиеся в генераторе*/
 {
@@ -108,14 +109,14 @@ std::ostream& operator<<(std::ostream& os, const operation& op);
 
 std::ostream& operator<<(std::ostream& os, const typeNode& tn);
 
-/*
-Вывод операции с подсказкой*/
-void displayOperationHint(const operation& op);
-
 bool operator==(const fieldNode& f1, const fieldNode& f2);
 
-/*отображение переменнойв зависимости от настроек*/
-QTextStream& displayTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var);
+/*отображение переменной и операции в зависимости от настроек*/
+QTextStream& displayVarTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var);
+QTextStream& displayOperTextStream(QTextStream& os, const operation& op, const QStringList* listOper, int oper);
+std::wostream& displayVarStringStream(std::wostream& os, const variable& v, const QStringList* listVar, int var);
+
+std::wostream& displayOperStringStream(std::wostream& os, const operation& op, const QStringList* listOper, int oper);
 
 class Node
 {
@@ -135,7 +136,7 @@ public:
 
     /*методы*/
     void display(int n = 0, std::ostream& os = std::cout) const;   /*вывод дерева на экран*/
-    void qStringDisplay(int n, QTextStream& os, const QStringList* varList, int var) const;
+    void qStringDisplay(int n, QTextStream& os, const QStringList* varList, int var, const QStringList* operList, int oper) const;
     //void tableDisplay(int n = 0) const;   /*вывод дерева для таблицы истинности*/
     friend bool compareTree(const Node* n1, const Node* n2);
     friend void deleteNode(const Node* n); /*удаление дерева, применять для вершины, удаляется и вершина!*/

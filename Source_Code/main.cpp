@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QStackedWidget>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
@@ -10,8 +11,6 @@ int main(int argc, char *argv[])
     MainWidget window;
     window.setWindowTitle("LOGIC EXPRESSION GENERATOR");
     window.show();
-
-
 
     return a.exec();
 }

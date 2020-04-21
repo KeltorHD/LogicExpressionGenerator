@@ -73,16 +73,57 @@ void FormTreeGenerate::init()
 
 void FormTreeGenerate::setVarText()
 {
-    ui->lX->setText(varList[size_t(state->getVar())][0]);
-    ui->lY->setText(varList[size_t(state->getVar())][1]);
-    ui->lZ->setText(varList[size_t(state->getVar())][2]);
-    ui->lT->setText(varList[size_t(state->getVar())][3]);
-    ui->lK->setText(varList[size_t(state->getVar())][4]);
-    ui->lL->setText(varList[size_t(state->getVar())][5]);
-    ui->lM->setText(varList[size_t(state->getVar())][6]);
-    ui->lN->setText(varList[size_t(state->getVar())][7]);
-    ui->lP->setText(varList[size_t(state->getVar())][8]);
-    ui->lS->setText(varList[size_t(state->getVar())][9]);
+    size_t var = size_t(state->getVar());
+    ui->lX->setText(varList[var][0]);
+    ui->lY->setText(varList[var][1]);
+    ui->lZ->setText(varList[var][2]);
+    ui->lT->setText(varList[var][3]);
+    ui->lK->setText(varList[var][4]);
+    ui->lL->setText(varList[var][5]);
+    ui->lM->setText(varList[var][6]);
+    ui->lN->setText(varList[var][7]);
+    ui->lP->setText(varList[var][8]);
+    ui->lS->setText(varList[var][9]);
+}
+
+void FormTreeGenerate::setOperText()
+{
+    QStringList operHintList =
+    {
+      tr("AND"), tr("OR"), tr("NOT"), tr("Implication"), tr("XOR"), tr("Equality"), tr("Sheffer stroke"), tr("NOR")
+    };
+    size_t oper = size_t(state->getOper());
+    ui->AND->setText(operList[oper][0] + ", " + operHintList[0]);
+    ui->OR->setText(operList[oper][1] + ", " + operHintList[1]);
+    ui->NOT->setText(operList[oper][2] + ", " + operHintList[2]);
+    ui->IMPLICATION->setText(operList[oper][3] + ", " + operHintList[3]);
+    ui->XOR->setText(operList[oper][4] + ", " + operHintList[4]);
+    ui->EKV->setText(operList[oper][5] + ", " + operHintList[5]);
+    ui->HATCH->setText(operList[oper][6] + ", " + operHintList[6]);
+    ui->PIERCE->setText(operList[oper][7] + ", " + operHintList[7]);
+}
+
+void FormTreeGenerate::changeEvent(QEvent *event)
+{
+    //В случае получения события изменения языка приложения
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);    // перевод окна
+
+        QStringList operHintList =
+        {
+          tr("AND"), tr("OR"), tr("NOT"), tr("Implication"), tr("XOR"), tr("Equality"), tr("Sheffer stroke"), tr("NOR")
+        };
+        size_t oper = size_t(state->getOper());
+        ui->AND->setText(operList[oper][0] + ", " + operHintList[0]);
+        ui->OR->setText(operList[oper][1] + ", " + operHintList[1]);
+        ui->NOT->setText(operList[oper][2] + ", " + operHintList[2]);
+        ui->IMPLICATION->setText(operList[oper][3] + ", " + operHintList[3]);
+        ui->XOR->setText(operList[oper][4] + ", " + operHintList[4]);
+        ui->EKV->setText(operList[oper][5] + ", " + operHintList[5]);
+        ui->HATCH->setText(operList[oper][6] + ", " + operHintList[6]);
+        ui->PIERCE->setText(operList[oper][7] + ", " + operHintList[7]);
+    }
 }
 
 void FormTreeGenerate::restore()

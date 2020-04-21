@@ -9,6 +9,8 @@
 #include "node.h"
 
 #include <QWidget>
+#include <QEvent>
+#include <QTranslator>
 
 namespace Ui {
 class MainWidget;
@@ -23,9 +25,15 @@ public:
     ~MainWidget();
     void update();
 
+protected:
+    // Метод получения событий в главном окне приложения
+    // В нём будет производиться проверка события смены перевода приложения
+    void changeEvent(QEvent * event) override;
+
 private:
     /*variable*/
     Ui::MainWidget *ui;
+    QTranslator qtLanguageTranslator; /*поле перевода*/
     State* state; /*класс настроек*/
 
     FormTreeGenerate *formTreeGenerate;        /*экран генерации*/

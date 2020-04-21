@@ -27,7 +27,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Сгенерированные формулы:</string>
+          <string>Generated formulas:</string>
          </property>
         </widget>
        </item>
@@ -71,7 +71,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Удалить</string>
+              <string>Delete</string>
              </property>
             </widget>
            </item>
@@ -84,7 +84,7 @@
               </font>
              </property>
              <property name="text">
-              <string>СДНФ</string>
+              <string>PDNF</string>
              </property>
             </widget>
            </item>
@@ -97,7 +97,7 @@
               </font>
              </property>
              <property name="text">
-              <string>СКНФ</string>
+              <string>PCNF</string>
              </property>
             </widget>
            </item>
@@ -109,7 +109,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Табл. истин.</string>
+              <string>Truth table</string>
              </property>
             </widget>
            </item>
@@ -122,7 +122,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Сохранить</string>
+              <string>Save</string>
              </property>
             </widget>
            </item>
@@ -139,7 +139,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Удалить все</string>
+              <string>Delete all</string>
              </property>
             </widget>
            </item>
@@ -152,7 +152,7 @@
               </font>
              </property>
              <property name="text">
-              <string>СДНФ всех</string>
+              <string>PDNF all</string>
              </property>
             </widget>
            </item>
@@ -165,7 +165,7 @@
               </font>
              </property>
              <property name="text">
-              <string>СКНФ всех</string>
+              <string>PCNF all</string>
              </property>
             </widget>
            </item>
@@ -177,7 +177,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Табл. истин. всех</string>
+              <string>Truth table all</string>
              </property>
             </widget>
            </item>
@@ -190,7 +190,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Сохранить все</string>
+              <string>Save all</string>
              </property>
             </widget>
            </item>
@@ -207,7 +207,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Сгенерировать другие формулы</string>
+          <string>Generate other formulas</string>
          </property>
         </widget>
        </item>
@@ -220,7 +220,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Выйти в меню</string>
+          <string>Back to menu</string>
          </property>
         </widget>
        </item>

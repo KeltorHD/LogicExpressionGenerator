@@ -25,6 +25,11 @@ public:
     ~FromTreeManipulation();
     void updateTree();
 
+protected:
+    // Метод получения событий в главном окне приложения
+    // В нём будет производиться проверка события смены перевода приложения
+    void changeEvent(QEvent * event) override;
+
 private:
     /*variable*/
     Ui::FromTreeManipulation *ui;
@@ -34,11 +39,16 @@ private:
     std::vector<const Node*>& his; /*указатель на переменные*/
     std::vector<const Node*>& head; /*указатель на корни деревьев*/
 
-    QStringList varList[3] =
+    QStringList varList[VARIABLE_TYPE_COUNT] =
     {
         {"X", "Y", "Z", "T", "K", "L", "M", "N", "P", "S"},
         {"X1", "X2", "X3", "X4", "X5", "X6", "X7", "X8", "X9", "X10"},
         {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"}
+    };
+    QStringList operList[OPERATION_TYPE_COUNT] =
+    {
+        {"*","+","~","->","(+)","<=>", "|", "↓"},
+        {"∧","∨","¬","→","⊕","⇔", "|", "↓"}
     };
 
     /*methods*/

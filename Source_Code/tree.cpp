@@ -403,7 +403,9 @@ bool findLogicValue(std::vector<const Node*>& his, const Node* head, std::vector
     return false; /*если ошибка, оно не падает*/
 }
 
-void outputSdnf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream& os)
+void outputSdnf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream& os,
+                const QStringList* varList, int var,
+                const QStringList* operList, int oper)
 {
     std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
@@ -422,7 +424,7 @@ void outputSdnf(std::vector<const Node *> &his, std::vector<const Node *> &head,
     for (size_t it = 0; it < head.size(); it++) /*проход по формулам*/
     {
         bool isFirst = true;
-        std::stringstream ss;
+        bool isFormula = false;
 
         for (size_t j = 0; j < static_cast<size_t>(pow(2, hisTMP.size())); j++) /*проход по рахзным кодам*/
         {
@@ -441,59 +443,95 @@ void outputSdnf(std::vector<const Node *> &his, std::vector<const Node *> &head,
             /*построение сднф и вывод*/
             if (findLogicValue(hisTMP, head[it], xyz) == 1)
             {
+                isFormula = true;
                 if (isFirst)
                 {
-                    ss << it + 1 << "."; /*номер функции*/
+                    os << it + 1 << "."; /*номер функции*/
                     isFirst = false;
                     for (size_t i = 0; i < hisTMP.size(); i++)
                     {
                         if (xyz[i] == 0)
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << "(~" << hisTMP[i]->getField().var << ")";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var ,varList, var);
+                                os << ")";
+                            }
                             else
-                                ss << "(~" << hisTMP[i]->getField().var << ")*";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var ,varList, var);
+                                os << ")";
+                                displayOperTextStream(os, operation::AND, operList, oper);
+                            }
                         }
                         else
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << hisTMP[i]->getField().var;
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                            }
                             else
-                                ss << hisTMP[i]->getField().var << "*";
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                displayOperTextStream(os, operation::AND, operList, oper);
+                            }
                         }
                     }
                 }
                 else
                 {
-                    ss << "+";
+                    displayOperTextStream(os, operation::OR, operList, oper);
                     for (size_t i = 0; i < hisTMP.size(); i++)
                     {
                         if (xyz[i] == 0)
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << "(~" << hisTMP[i]->getField().var << ")";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                            }
                             else
-                                ss << "(~" << hisTMP[i]->getField().var << ")*";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                                displayOperTextStream(os, operation::AND, operList, oper);
+                            }
                         }
                         else
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << hisTMP[i]->getField().var;
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                            }
                             else
-                                ss << hisTMP[i]->getField().var << "*";
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                displayOperTextStream(os, operation::AND, operList, oper);
+                            }
                         }
                     }
                 }
             }
         }
-        if (!ss.str().empty())
-            os << ss.str().c_str();
-        if (!ss.str().empty())
+        if (isFormula)
+        {
             os << endl;
+            isFormula = false;
+        }
     }
 }
 
-void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os)
+void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os,
+                const QStringList* varList, int var,
+                const QStringList* operList, int oper)
 {
     std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
@@ -509,13 +547,13 @@ void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head,
             hisTMP.push_back(his[i]);
     }
 
+    bool isFormula = false;
 
     for (size_t it = 0; it < head.size(); it++) /*проход по формулам*/
     {
         bool isFirst = true;
-        std::stringstream ss;
 
-        for (size_t j = 0; j < static_cast<size_t>(pow(2, hisTMP.size())); j++) /*проход по рахзным кодам*/
+        for (size_t j = 0; j < static_cast<size_t>(pow(2, hisTMP.size())); j++) /*проход по разным кодам*/
         {
             std::vector<bool> xyz; /*значения переменных по порядку*/
 
@@ -532,64 +570,100 @@ void outputSknf(std::vector<const Node *> &his, std::vector<const Node *> &head,
             /*построение скнф и вывод*/
             if (findLogicValue(hisTMP, head[it], xyz) == 0)
             {
+                isFormula = true;
                 if (isFirst)
                 {
-                    ss << it + 1 << "."; /*номер функции*/
+                    os << it + 1 << "."; /*номер функции*/
                     isFirst = false;
 
-                    ss << "(";
+                    os << "(";
                     for (size_t i = 0; i < hisTMP.size(); i++)
                     {
                         if (xyz[i] == 1)
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << "(~" << hisTMP[i]->getField().var << ")";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                            }
                             else
-                                ss << "(~" << hisTMP[i]->getField().var << ")+";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                                displayOperTextStream(os, operation::OR, operList, oper);
+                            }
                         }
                         else
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << hisTMP[i]->getField().var;
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                            }
                             else
-                                ss << hisTMP[i]->getField().var << "+";
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                displayOperTextStream(os, operation::OR, operList, oper);
+                            }
                         }
                     }
-                    ss << ")";
+                    os << ")";
                 }
                 else
                 {
-                    ss << "*";
-                    ss << "(";
+                    displayOperTextStream(os, operation::AND, operList, oper);
+                    os << "(";
                     for (size_t i = 0; i < hisTMP.size(); i++)
                     {
                         if (xyz[i] == 1)
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << "(~" << hisTMP[i]->getField().var << ")";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                            }
                             else
-                                ss << "(~" << hisTMP[i]->getField().var << ")+";
+                            {
+                                os << "(";
+                                displayOperTextStream(os, operation::NOT, operList, oper);
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                os << ")";
+                                displayOperTextStream(os, operation::OR, operList, oper);
+                            }
                         }
                         else
                         {
                             if (i == hisTMP.size() - 1)
-                                ss << hisTMP[i]->getField().var;
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                            }
                             else
-                                ss << hisTMP[i]->getField().var << "+";
+                            {
+                                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var);
+                                displayOperTextStream(os, operation::OR, operList, oper);
+                            }
                         }
                     }
-                    ss << ")";
+                    os << ")";
                 }
             }
         }
-        if (!ss.str().empty())
-            os << ss.str().c_str();
-        if (!ss.str().empty())
+        if (isFormula)
+        {
             os << endl;
+            isFormula = false;
+        }
     }
 }
 
-void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os, const QStringList* varList, int var)
+void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &head, QTextStream &os,
+                     const QStringList* varList, int var,
+                     const QStringList* operList, int oper)
 {
     std::vector<const Node*> hisTMP; /*хранение переменных без повторения*/
     hisTMP.push_back(his[0]);
@@ -612,12 +686,12 @@ void buildTableTruth(std::vector<const Node *> &his, std::vector<const Node *> &
         for (size_t i = 0; i < hisTMP.size(); i++)
         {
             if (hisTMP[i]->getField().type != typeNode::LOG_CONST)
-                os << hisTMP[i]->getField().var << '\t';
+                displayVarTextStream(os, hisTMP[i]->getField().var, varList, var) << '\t';
             else
                 os << hisTMP[i]->getField().lConst << '\t';
         }
 
-        head[it]->qStringDisplay(0, os, varList, var);
+        head[it]->qStringDisplay(0, os, varList, var, operList, oper);
         os << endl;
 
         for (size_t j = 0; j < static_cast<size_t>(pow(2, hisTMP.size())); j++)
