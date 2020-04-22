@@ -12,8 +12,7 @@
         <location filename="formtreegenerate.ui" line="28"/>
         <source>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
         <oldsource>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulasл:</oldsource>
-        <translation>Выберите переменные(&gt;=2), операции(&gt;=1), участвующие в генерации,
- и количество формул:</translation>
+        <translation>Выберите переменные(&gt;=2), операции(&gt;=1), участвующие в генерации, и количество формул:</translation>
     </message>
     <message>
         <location filename="formtreegenerate.ui" line="83"/>
@@ -186,7 +185,7 @@
     <message>
         <location filename="fromtreemanipulation.ui" line="74"/>
         <source>Delete</source>
-        <translation>Удалть</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="fromtreemanipulation.ui" line="87"/>
