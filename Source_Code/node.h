@@ -102,22 +102,12 @@ QTextStream& operator<<(QTextStream& os, const typeNode& tn);
 /*
 перегрузки операций
 */
-std::ostream& operator<<(std::ostream& os, const variable& v);
-
-std::ostream& operator<<(std::ostream& os, const log_const& l);
-
-std::ostream& operator<<(std::ostream& os, const operation& op);
-
-std::ostream& operator<<(std::ostream& os, const typeNode& tn);
 
 bool operator==(const fieldNode& f1, const fieldNode& f2);
 
 /*отображение переменной и операции в зависимости от настроек*/
 QTextStream& displayVarTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var);
 QTextStream& displayOperTextStream(QTextStream& os, const operation& op, const QStringList* listOper, int oper);
-std::wostream& displayVarStringStream(std::wostream& os, const variable& v, const QStringList* listVar, int var);
-
-std::wostream& displayOperStringStream(std::wostream& os, const operation& op, const QStringList* listOper, int oper);
 
 class Node
 {

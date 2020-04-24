@@ -1,45 +1,5 @@
 #include "node.h"
 
-QTextStream& operator<<(QTextStream& os, const variable& v)
-{
-        switch (v)
-        {
-        case variable::X:
-                os << "X";
-                break;
-        case variable::Y:
-                os << "Y";
-                break;
-        case variable::Z:
-                os << "Z";
-                break;
-        case variable::T:
-                os << "T";
-                break;
-        case variable::K:
-                os << "K";
-                break;
-        case variable::L:
-                os << "L";
-                break;
-        case variable::M:
-                os << "M";
-                break;
-        case variable::N:
-                os << "N";
-                break;
-        case variable::P:
-                os << "P";
-                break;
-        case variable::S:
-                os << "S";
-                break;
-        default:
-                break;
-        }
-        return os;
-}
-
 QTextStream& displayVarTextStream(QTextStream& os, const variable& v, const QStringList* listVar, int var)
 {
     switch (v)
@@ -114,78 +74,44 @@ QTextStream &displayOperTextStream(QTextStream &os, const operation &op, const Q
     return os;
 }
 
-std::wostream &displayVarStringStream(std::wostream &os, const variable &v, const QStringList *listVar, int var)
+QTextStream& operator<<(QTextStream& os, const variable& v)
 {
-    switch (v)
-    {
-    case variable::X:
-            os << listVar[var][0].toStdWString();
-            break;
-    case variable::Y:
-            os << listVar[var][1].toStdWString();
-            break;
-    case variable::Z:
-            os << listVar[var][2].toStdWString();
-            break;
-    case variable::T:
-            os << listVar[var][3].toStdWString();
-            break;
-    case variable::K:
-            os << listVar[var][4].toStdWString();
-            break;
-    case variable::L:
-            os << listVar[var][5].toStdWString();
-            break;
-    case variable::M:
-            os << listVar[var][6].toStdWString();
-            break;
-    case variable::N:
-            os << listVar[var][7].toStdWString();
-            break;
-    case variable::P:
-            os << listVar[var][8].toStdWString();
-            break;
-    case variable::S:
-            os << listVar[var][9].toStdWString();
-            break;
-    default:
-            break;
-    }
-    return os;
-}
-
-std::wostream &displayOperStringStream(std::wostream &os, const operation &op, const QStringList *listOper, int oper)
-{
-    switch (op)
-    {
-    case operation::AND:
-        os << listOper[oper][0].toStdWString();
-        break;
-    case operation::OR:
-        os << listOper[oper][1].toStdWString();
-        break;
-    case operation::NOT:
-        os << listOper[oper][2].toStdWString();
-        break;
-    case operation::IMPLICATION:
-        os << listOper[oper][3].toStdWString();
-        break;
-    case operation::XOR:
-        os << listOper[oper][4].toStdWString();
-        break;
-    case operation::EQUIVALENCE:
-        os << listOper[oper][5].toStdWString();
-        break;
-    case operation::SHEFFER_STROKE:
-        os << listOper[oper][6].toStdWString();
-        break;
-    case operation::PEIRCES_ARROW:
-        os << listOper[oper][7].toStdWString();
-        break;
-    default:
-        break;
-    }
-    return os;
+        switch (v)
+        {
+        case variable::X:
+                os << "X";
+                break;
+        case variable::Y:
+                os << "Y";
+                break;
+        case variable::Z:
+                os << "Z";
+                break;
+        case variable::T:
+                os << "T";
+                break;
+        case variable::K:
+                os << "K";
+                break;
+        case variable::L:
+                os << "L";
+                break;
+        case variable::M:
+                os << "M";
+                break;
+        case variable::N:
+                os << "N";
+                break;
+        case variable::P:
+                os << "P";
+                break;
+        case variable::S:
+                os << "S";
+                break;
+        default:
+                break;
+        }
+        return os;
 }
 
 QTextStream& operator<<(QTextStream& os, const log_const& l)
@@ -255,117 +181,6 @@ QTextStream& operator<<(QTextStream& os, const typeNode& tn)
                 break;
         }
         return os;
-}
-
-
-
-std::ostream& operator<<(std::ostream& os, const variable& v)
-{
-    switch (v)
-    {
-    case variable::X:
-        os << "X";
-        break;
-    case variable::Y:
-        os << "Y";
-        break;
-    case variable::Z:
-        os << "Z";
-        break;
-    case variable::T:
-        os << "T";
-        break;
-    case variable::K:
-        os << "K";
-        break;
-    case variable::L:
-        os << "L";
-        break;
-    case variable::M:
-        os << "M";
-        break;
-    case variable::N:
-        os << "N";
-        break;
-    case variable::P:
-        os << "P";
-        break;
-    case variable::S:
-        os << "S";
-        break;
-    default:
-        break;
-    }
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const log_const& l)
-{
-    switch (l)
-    {
-    case log_const::FALSE:
-        os << "0";
-        break;
-    case log_const::TRUE:
-        os << "1";
-        break;
-    default:
-        break;
-    }
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const operation& op)
-{
-    switch (op)
-    {
-    case operation::AND:
-        os << "*";
-        break;
-    case operation::OR:
-        os << "+";
-        break;
-    case operation::NOT:
-        os << "~";
-        break;
-    case operation::IMPLICATION:
-        os << "->";
-        break;
-    case operation::XOR:
-        os << "(+)";
-        break;
-    case operation::EQUIVALENCE:
-        os << "<=>";
-        break;
-    case operation::SHEFFER_STROKE: /*изменить*/
-        os << "|";
-        break;
-    case operation::PEIRCES_ARROW:
-        os << "||";
-        break;
-    default:
-        break;
-    }
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const typeNode& tn)
-{
-    switch (tn)
-    {
-    case typeNode::VAR:
-        os << "Переменная";
-        break;
-    case typeNode::LOG_CONST:
-        os << "Логическая константа";
-        break;
-    case typeNode::OPERATION:
-        os << "Операция";
-        break;
-    default:
-        break;
-    }
-    return os;
 }
 
 bool operator==(const fieldNode& f1, const fieldNode& f2)
