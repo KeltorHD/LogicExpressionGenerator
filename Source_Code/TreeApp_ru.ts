@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="formtreegenerate.ui" line="28"/>
-        <source>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
-        <oldsource>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulasл:</oldsource>
-        <translation>Выберите переменные(&gt;=2), операции(&gt;=1), участвующие в генерации, и количество формул:</translation>
+        <source>Select different variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
+        <oldsource>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</oldsource>
+        <translation>Выберите различные переменные(&gt;=2), операции(&gt;=1), участвующие в генерации, и количество формул:</translation>
     </message>
     <message>
         <location filename="formtreegenerate.ui" line="83"/>
@@ -333,12 +333,17 @@
         <translation>Вид переменных</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="196"/>
+        <location filename="settings.ui" line="105"/>
+        <source>Theme application</source>
+        <translation>Тема приложения</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="219"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="208"/>
+        <location filename="settings.ui" line="231"/>
         <source>Back to menu</source>
         <translation>Назад в меню</translation>
     </message>

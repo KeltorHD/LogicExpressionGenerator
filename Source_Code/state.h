@@ -21,9 +21,11 @@ public:
     void setVar(const varType& var);
     void setOper(const opType& oper);
     void setLang(const langType& lang);
+    void setTheme(const themeType& theme);
     const varType &getVar();
     const opType &getOper();
     const langType &getLang();
+    const themeType &getTheme();
 
     /*методы*/
     void save();   /*сохранение текущих настроек*/
@@ -33,9 +35,11 @@ public:
 
 private:
     /*переменные*/
-    varType var;   /*тип отображения переменной*/
-    opType oper;   /*тип отображения операции*/
-    langType lang; /*тип локализации*/
+    varType var;     /*тип отображения переменной*/
+    opType oper;     /*тип отображения операции*/
+    langType lang;   /*тип локализации*/
+    themeType theme; /*тип темы*/
+
     QTranslator& qtLanguageTranslator; /*поле перевода*/
 
     /*методы*/

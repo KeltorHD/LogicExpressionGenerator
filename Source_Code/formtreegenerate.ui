@@ -25,7 +25,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</string>
+        <string>Select different variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</string>
        </property>
       </widget>
      </item>

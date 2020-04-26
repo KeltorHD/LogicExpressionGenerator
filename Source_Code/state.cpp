@@ -18,6 +18,20 @@ State::State(QTranslator& qtr)
         break;
     }
     qApp->installTranslator(&qtLanguageTranslator);
+
+    switch (theme)
+    {
+    case themeType::WHITE:
+        qApp->setStyleSheet("");
+        break;
+    case themeType::BLACK:
+        QFile f(":qdarkstyle/style.qss");
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        qApp->setStyleSheet(ts.readAll());
+        f.close();
+        break;
+    }
 }
 
 State::~State()
@@ -53,6 +67,24 @@ void State::setLang(const langType &lang)
     qApp->installTranslator(&qtLanguageTranslator);
 }
 
+void State::setTheme(const themeType &theme)
+{
+    this->theme = theme;
+    switch (theme)
+    {
+    case themeType::WHITE:
+        qApp->setStyleSheet("");
+        break;
+    case themeType::BLACK:
+        QFile f(":qdarkstyle/style.qss");
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        qApp->setStyleSheet(ts.readAll());
+        f.close();
+        break;
+    }
+}
+
 const varType &State::getVar()
 {
     return this->var;
@@ -68,6 +100,11 @@ const langType &State::getLang()
     return this->lang;
 }
 
+const themeType &State::getTheme()
+{
+    return this->theme;
+}
+
 void State::save()
 {
     QFile file("state.ini");
@@ -79,7 +116,8 @@ void State::save()
 
         out << int(this->var) << endl;
         out << int(this->oper) << endl;
-        out << int(this->lang);
+        out << int(this->lang) << endl;
+        out << int(this->theme);
         file.close();
     }
     else
@@ -109,6 +147,7 @@ void State::init()
             this->var = varType(in.readLine().toInt());
             this->oper = opType(in.readLine().toInt());
             this->lang = langType(in.readLine().toInt());
+            this->theme = themeType(in.readLine().toInt());
             file.close();
         }
         else
@@ -117,6 +156,7 @@ void State::init()
             this->var = varType::XYZ;
             this->oper = opType::MATH;
             this->lang = langType::RU;
+            this->theme = themeType::WHITE;
         }
     }
     else
@@ -125,5 +165,6 @@ void State::init()
         this->var = varType::XYZ;
         this->oper = opType::MATH;
         this->lang = langType::RU;
+        this->theme = themeType::WHITE;
     }
 }

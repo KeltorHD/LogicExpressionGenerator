@@ -10,7 +10,8 @@
     </message>
     <message>
         <location filename="formtreegenerate.ui" line="28"/>
-        <source>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
+        <source>Select different variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
+        <oldsource>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -328,12 +329,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="196"/>
+        <location filename="settings.ui" line="105"/>
+        <source>Theme application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="219"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="208"/>
+        <location filename="settings.ui" line="231"/>
         <source>Back to menu</source>
         <translation type="unfinished"></translation>
     </message>

@@ -25,6 +25,7 @@ Settings::Settings(State *state,
     connect(ui->comboVar, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &Settings::varChanged);
     connect(ui->comboOper, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &Settings::operChanged);
     connect(ui->comboLang, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &Settings::langChanged);
+    connect(ui->comboTheme, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &Settings::themeChanged);
 
     /*кнопка save*/
     connect(ui->save, &QPushButton::clicked, this, &Settings::save);
@@ -48,6 +49,7 @@ void Settings::init()
     QStringList listVar = {"X, Y, Z, ..", "X1, X2, X3, ..", "A, B, C, .."};
     QStringList listOper = {"~, +, *, (+)", "¬, ∧, ∨, ⊕, ⇔"};
     QStringList listLang = {"EN", "RU", "DE"};
+    QStringList listTheme = {"WHITE", "DARK"};
 
     ui->comboVar->addItems(listVar);
     ui->comboVar->setCurrentIndex(int(state->getVar()));
@@ -57,6 +59,9 @@ void Settings::init()
 
     ui->comboLang->addItems(listLang);
     ui->comboLang->setCurrentIndex(int(state->getLang()));
+
+    ui->comboTheme->addItems(listTheme);
+    ui->comboTheme->setCurrentIndex(int(state->getTheme()));
 }
 
 void Settings::restore()
@@ -69,6 +74,7 @@ void Settings::restore()
     ui->comboVar->setCurrentIndex(int(state->getVar()));
     ui->comboOper->setCurrentIndex(int(state->getOper()));
     ui->comboLang->setCurrentIndex(int(state->getLang()));
+    ui->comboTheme->setCurrentIndex(int(state->getTheme()));
 }
 
 void Settings::backToMenu()
@@ -115,19 +121,32 @@ void Settings::langChanged()
     checkSave();
 }
 
+void Settings::themeChanged()
+{
+    if (ui->comboTheme->currentIndex() != int(state->getTheme()))
+        masSettings[size_t(masType::THEME)] = true;
+    else
+        masSettings[size_t(masType::THEME)] = false;
+    checkSave();
+}
+
 void Settings::save()
 {
-    if (masSettings[int(masType::VAR)])
+    if (masSettings[size_t(masType::VAR)])
     {
         state->setVar(varType(ui->comboVar->currentIndex()));
     }
-    if (masSettings[int(masType::OPER)])
+    if (masSettings[size_t(masType::OPER)])
     {
         state->setOper(opType(ui->comboOper->currentIndex()));
     }
-    if (masSettings[int(masType::LANG)])
+    if (masSettings[size_t(masType::LANG)])
     {
         state->setLang(langType(ui->comboLang->currentIndex()));
+    }
+    if (masSettings[size_t(masType::THEME)])
+    {
+        state->setTheme(themeType(ui->comboTheme->currentIndex()));
     }
     for (size_t i =0; i < COUNT_SETTINGS; i++)
     {

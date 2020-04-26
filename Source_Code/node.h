@@ -61,6 +61,12 @@ enum class langType /*тип локализации*/
     DE
 };
 
+enum class themeType /*тип темы приложения*/
+{
+    WHITE = 0,
+    BLACK
+};
+
 enum class screen /*тип экрана*/
 {
     MENU = 0,

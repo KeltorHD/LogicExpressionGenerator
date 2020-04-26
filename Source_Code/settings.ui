@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>827</width>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,6 +93,19 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Theme application</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -117,6 +130,16 @@
          </item>
          <item>
           <widget class="QComboBox" name="comboVar">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboTheme">
            <property name="font">
             <font>
              <family>Arial</family>

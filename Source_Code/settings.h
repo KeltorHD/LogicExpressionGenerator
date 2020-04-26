@@ -7,10 +7,10 @@
 #include <QWidget>
 #include <QStackedWidget>
 
-#define COUNT_SETTINGS 3
+#define COUNT_SETTINGS 4
 
-enum class masType {LANG = 0, OPER, VAR};
-/*0 - язык, 1 - операции, 2 - переменные*/
+enum class masType {LANG = 0, OPER, VAR, THEME};
+/*0 - язык, 1 - операции, 2 - переменные, 3 - тема приложения*/
 
 namespace Ui {
 class Settings;
@@ -42,13 +42,14 @@ private:
     void init();
     void restore();
     void backToMenu();
-    void checkSave();   /*возможность сохранить*/
+    void checkSave();    /*возможность сохранить*/
 
-    void varChanged();  /*изменение переменной*/
-    void operChanged(); /*изменение операций*/
-    void langChanged(); /*изменение языка*/
+    void varChanged();   /*изменение переменной*/
+    void operChanged();  /*изменение операций*/
+    void langChanged();  /*изменение языка*/
+    void themeChanged(); /*изменение темы*/
 
-    void save();        /*сохранение настроек*/
+    void save();         /*сохранение настроек*/
 };
 
 #endif // SETTINGS_H

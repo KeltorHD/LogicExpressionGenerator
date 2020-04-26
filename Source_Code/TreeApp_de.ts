@@ -10,7 +10,8 @@
     </message>
     <message>
         <location filename="formtreegenerate.ui" line="28"/>
-        <source>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
+        <source>Select different variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</source>
+        <oldsource>Select variables(&gt;=2), operations(&gt;=1), involved in the generation and the number of formulas:</oldsource>
         <translation>Wählen Sie die Variablen(&gt;=2), Operationen(&gt;=1), die in der Generation teilnehmen, und Anzahl der Formeln:</translation>
     </message>
     <message>
@@ -269,7 +270,7 @@
     <message>
         <location filename="mainwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Generator Der Logischen Ausdrücke</translation>
+        <translation>Generator Der Logischen Ausdrücke</translation>
     </message>
 </context>
 <context>
@@ -328,12 +329,17 @@
         <translation>Aussehen der Variablen</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="196"/>
+        <location filename="settings.ui" line="105"/>
+        <source>Theme application</source>
+        <translation>Anwendungsthema</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="219"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="208"/>
+        <location filename="settings.ui" line="231"/>
         <source>Back to menu</source>
         <translation>Im Menü zurück</translation>
     </message>
