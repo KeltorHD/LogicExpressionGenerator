@@ -185,7 +185,7 @@ QTextStream& operator<<(QTextStream& os, const typeNode& tn)
 
 bool operator==(const fieldNode& f1, const fieldNode& f2)
 {
-        if (f1.type == f1.type)
+        if (f1.type == f2.type)
         {
                 if (f1.type == typeNode::VAR && f1.var == f2.var)
                         return true;
